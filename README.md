@@ -1,111 +1,70 @@
-If you are looking forward to install the Danphe you can follow the below labs <br>
-<a href="https://youtu.be/lKORZmKG0sA"> Lab 1 :- Installing Danphe App in desktop mode. </a> <br>
-<a href="https://youtu.be/HmAAbFiPOKw"> Lab 2 :- Configuring Danphe inside IIS. </a> <br>
-We will be adding more videos in coming time.
-<br>
-If you have any issues please send us mail at shiv_koirala@yahoo.com  more than happy to help you in understanding and installing. You can also <a href="https://www.ehospitalmanagementsystem.com/" target="_new">
- Chat with us here.
-</a> 
-<br> <br> <br><br>
-Scripts and tools will be listed here <br>
-<a href="https://github.com/opensource-emr/cleanupDanpheDM">Clean up script to start from scratch</a> <br>
- <br>
- If you wish to see demo <a href="http://202.51.74.168:302" target="_blank">
- Click here
-</a> Username  : admin / Password  : pass123 <br>
-Also please do read down for more details of how to install and configure.
+# CloudCure EMR & HMIS
 
-Introduction
-==============
-Danphe EMR is a enterprise web-based application which covers all day to day aspects of Hospital management end to end. Its currently live 50 plus hospitals in Asia(India,Nepal and Bangladesh). 
+CloudCure EMR is a modern, enterprise-grade, high-performance Hospital Management Information System (HMIS) and Electronic Medical Record (EMR) platform. Engineered for clinics, diagnostic centers, and multi-specialty hospitals, CloudCure has been modernized into a subscription-ready SaaS platform localized specifically for the Indian healthcare ecosystem.
 
-![danphelogin](https://user-images.githubusercontent.com/48054642/159859670-05cbe026-f0eb-43cf-811a-0404a36a76f7.jpg) ![danphepatientregistration](https://user-images.githubusercontent.com/48054642/159859505-84b59b71-d271-4e33-b504-1c15ecba3580.jpg)
+---
 
-Modules in Danphe EMR
-==============
-It has around 40 modules and below are important ones listed.
+## 🚀 Key Modernizations & Features
 
-+ Registration/Patient 
-+ Appointment 
-+ Billing Module 
-+ Accounting Module 
-+ Inventory Management 
-+ Pharmacy Module 
-+ Laboratory Management 
-+ User Module 
-+ Admission Discharge and Transfer (ADT) 
-+ Nursing Module 
-+ Sub-store Module 
-+ Radiology Management 
-+ Medical Record 
-+ Emergency 
-+ Reporting and Dashboard 
-+ Doctors 
+### 1. Modern .NET 8.0 & EF Core 8 Engine
+* **High-Performance Runtime**: Completely upgraded from legacy .NET Framework configurations to the latest **.NET 8.0 (LTS)** runtime, running seamlessly on Kestrel.
+* **Modern ORM (EF Core 8)**: Upgraded database mapping contexts to Entity Framework Core 8, optimizing query plan translation, eliminating TransactionScope deadlocks, and implementing explicit one-to-one schema mappings.
+* **Central Session Middleware**: Restores stateless session integrity by parsing incoming Bearer JWT tokens and dynamically reconstructing user environments inside active requests, eliminating multi-module session timeouts.
+* **System-Wide Command Protection**: Configured robust ADO.NET query command timeouts to guarantee SQL Server Express database reliability during intensive medical report generation.
 
-`and more...`
+### 2. Localization & Indian Market Customization
+* **₹ INR Currency Standards**: Native mapping of Indian Rupee (`₹`) settings across all system configurations, receipts, accounting ledgers, and billing summaries.
+* **Indian GST Taxes**: Configured centralized, compliant tax structures supporting automated CGST and SGST calculation rates on all medical consultation fees, pharmacy transactions, and ward packages.
+* **SSU Form Simplification**: Cleaned up patient registration pipelines globally (SSU, Outpatient Billing, Emergency, and Government Insurance registration forms) by removing legacy Caste/Ethnic fields.
 
-Demo of Danphe EMR
-==============
-If you have any issues please sen us mail at shiv_koirala@yahoo.com 
+### 3. Integrated SaaS Dispatch & Billing Gateways
+* **Dynamic UPI QR Code Checkout**: Instant scan-to-pay functionality built natively into the checkout panel. Patients can scan a dynamically generated UPI QR code on the spot using any standard app (GPay, PhonePe, Paytm, BHIM) to settle bills.
+* **Scannable Print Invoicing**: Automated UPI payment QR code embedding directly at the bottom of printed invoices and digital receipts, allowing quick payments.
+* **WhatsApp Report & Receipt Dispatch**: Seamless mock service hooks inside `DanpheEMR.Core` for automated dispatch of patient prescriptions, laboratory PDF reports, and billing receipts.
 
-Click on below demo link and check out live application
+---
 
-<a href="http://202.51.74.168:302/" target="_blank">
-  Danphe EMR Live Application
-</a>
+## 📦 Core Medical Modules
 
-Use below `credentials` for login
+* **Patient Registration**: Optimized registration widgets pre-loading country subdivisions for district validation.
+* **Appointment Scheduling**: Real-time slot management with department-wise doctor booking engines.
+* **Billing & Invoicing**: Comprehensive insurance billing, copayments, dynamic UPI checkouts, and print layout engines.
+* **Pharmacy & Inventory**: Complete batch tracking, counter activation queues, and prescription-to-dispensation workflows.
+* **Clinical Cockpit & ADT**: Ward tracking, nursing worksheets, admission-discharge-transfer states, and doctor vitals boards.
+* **Laboratory & Radiology**: HTML/normal report generators, sample collection barcodes, and final report approval workflows.
 
+---
+
+## 🛠️ How to Run Locally
+
+### Prerequisites
+* **Runtime**: [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+* **Client-Side Build**: [Node.js (LTS)](https://nodejs.org)
+* **Database**: SQL Server / LocalDB (Express or Developer edition)
+
+### 1. Database Restoration
+1. Restore the provided baseline SQL Server database backup located at:
+   `Database/2. EMR-Db/DanpheInternationalDB/Dev_DanpheEMR_INT1.zip`
+2. Update your SQL Server connection strings in the main configurations at:
+   `Code/Websites/DanpheEMR/appsettings.json`
+
+### 2. Run the Backend (Kestrel Server)
+Navigate to the root directory and boot up the development server:
+```powershell
+dotnet run --project Code/Websites/DanpheEMR/DanpheEMR.csproj --launch-profile DanpheEMR
 ```
-   Username  : admin
-   Password  : pass123
-```   
+The server will start listening live on: **`http://localhost:5000`**
 
-Need help?
-==============
-If you have any issues please send us mail at shiv_koirala@yahoo.com  more than happy to help you in understanding and installing.
+### 3. Build Client Assets
+If you want to modify client assets, navigate to the Angular directory:
+```bash
+cd Code/Websites/DanpheEMR/wwwroot/DanpheApp
+npm run build
+```
 
-Installation & Setup
-======================
-Getting start with **DanpheEMR** Please visit <a href="https://opensource-emr.github.io/hospital-management-emr//#setup" target="_blank">
-    :point_right: Page
-</a>  and read it carefully. 
-Here you have details about requirements, configuration and setup.
+---
 
+## 🔒 Security & Compliance
 
-#### Development Setup
-
-+ This details for `developers` who wants to `clone DanpheEMR`, Use it and `help` us for improvements.
-+ We have all details like software and tools `requirements`
-+ Step by step guide for `build and run` project
-+ Database creation 
-`and more..`
-
-
-<a href="https://opensource-emr.github.io/hospital-management-emr/#setup" target="_blank">
-    :point_right: docs
-</a>
-
-Credits
-========
-
-## Sponsors
-All sponsors are here. Thanks all sponsors for your contributions.
-
-<a href="https://www.imarkdigital.com/" target="_blank">
-  <img src="https://user-images.githubusercontent.com/48054642/161473176-51fcb05f-e87f-4229-8673-887bf5060fe0.png" />
-</a>
-
-## Contributors
-Thanks all contributors. 
-
-<a href="https://github.com/opensource-emr/hospital-management-emr/graphs/contributors" target="_blank">
-  <img src="https://contrib.rocks/image?repo=opensource-emr/hospital-management-emr" />
-</a> <br><br>
-
-
-License
-==============
-
-See the [LICENSE](https://github.com/opensource-emr/hospital-management-emr/blob/master/LICENSE) file.
-
+* Centralized RBAC (Role-Based Access Control) managing permissions for doctors, cashiers, nurses, laboratory technicians, and administrators.
+* Fully SSL-compliant endpoints supporting JWT Bearer authentication headers.
