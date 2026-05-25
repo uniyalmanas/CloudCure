@@ -1,0 +1,418 @@
+@using DanpheEMR.Security
+@model LoginViewModel
+
+@{
+    string message = (string)ViewData["status"];
+    string expiryNotice = (string)ViewData["ExpiryNotice"];
+}
+
+
+<meta charset="utf-8" />
+<link href="~/assets-dph/external/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Oswald|Nunito:400,600,900&display=swap" rel="stylesheet">
+<style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Oswald:wght@500;700&display=swap');
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background-color: #f8fafc;
+        overflow-x: hidden;
+    }
+
+    .main-wrapper {
+        min-height: 100vh;
+        display: flex;
+        background: #f8fafc;
+    }
+
+    .left-img {
+        background-position: center;
+        background-size: cover;
+        height: 100vh;
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        color: #fff;
+        padding: 60px 40px;
+        box-sizing: border-box;
+    }
+
+    .left-img:before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(135deg, rgba(13, 148, 136, 0.88), rgba(16, 185, 129, 0.92));
+        top: 0;
+        left: 0;
+    }
+
+    .left-img-content {
+        position: relative;
+        z-index: 9;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .left-img-content h1 {
+        font-size: 38px;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        font-family: 'Oswald', sans-serif;
+        letter-spacing: 1.5px;
+        text-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .left-img-content p {
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 1.6;
+        margin-top: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    ul.feature {
+        list-style: none;
+        padding-left: 0;
+        margin-top: 30px;
+    }
+
+    .feature li {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(255, 255, 255, 0.06);
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(8px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .feature li:hover {
+        background: rgba(255, 255, 255, 0.12);
+        transform: translateX(6px);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .feature li span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 22px;
+        height: 22px;
+        background: #00ffa1;
+        color: #0f766e;
+        border-radius: 50%;
+        font-size: 11px;
+        font-weight: 800;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    p.footer-btm-cprt {
+        position: relative;
+        z-index: 9;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.85);
+        margin: 0;
+        text-align: center;
+    }
+
+    .footer-btm-cprt a {
+        color: #00ffa1 !important;
+        font-weight: 700;
+        text-decoration: none;
+        transition: opacity 0.2s;
+    }
+
+    .footer-btm-cprt a:hover {
+        opacity: 0.9;
+        text-decoration: underline;
+    }
+
+    .right-column {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 40px;
+    }
+
+    .form-wrapper {
+        width: 100%;
+        max-width: 420px;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        box-shadow: 0 25px 50px -12px rgba(13, 148, 136, 0.08), 0 1px 3px rgba(0,0,0,0.03);
+        border-radius: 24px;
+        padding: 45px 40px;
+        box-sizing: border-box;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        margin: auto;
+    }
+
+    .form-wrapper:hover {
+        box-shadow: 0 35px 70px -15px rgba(13, 148, 136, 0.14), 0 1px 4px rgba(0,0,0,0.04);
+        transform: translateY(-4px);
+    }
+
+    .form-control {
+        border: 1.5px solid #e2e8f0;
+        height: 52px;
+        background-color: #fff;
+        padding-left: 18px;
+        padding-right: 18px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #1e293b;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: none !important;
+    }
+
+    .form-control:focus {
+        border-color: #10b981;
+        background-color: #fff;
+        box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1) !important;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #10b981, #0d9488);
+        border: none;
+        color: #fff;
+        height: 52px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: 0.2px;
+        padding: 0 28px;
+        box-shadow: 0 10px 22px -5px rgba(13, 148, 136, 0.35);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px -5px rgba(13, 148, 136, 0.45);
+        opacity: 0.98;
+    }
+
+    .btn-primary:active {
+        transform: translateY(0);
+    }
+
+    a.c-7 {
+        font-weight: 600;
+        color: #0d9488;
+        font-size: 13px;
+        transition: color 0.2s;
+        text-decoration: none !important;
+    }
+
+    a.c-7:hover {
+        color: #10b981;
+    }
+
+    .rem-me {
+        margin-top: 15px;
+    }
+
+    .rem-me label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #64748b;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+
+    .rem-me input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: #10b981;
+        margin: 0;
+        cursor: pointer;
+    }
+
+    .alert-danger {
+        background-color: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #991b1b;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 13px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 20px !important;
+    }
+
+    .alert-success {
+        background-color: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        color: #065f46;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 13px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 20px !important;
+    }
+
+    .reduce-padding {
+        padding: 12px;
+        margin: 0;
+    }
+
+    .txt-xs {
+        color: #94a3b8;
+        font-size: 12px;
+        font-weight: 600;
+    }
+</style>
+
+
+
+<div id="alertMessage" class="error"></div>
+@*<div class="text_success">
+        <img src="~/themes/theme-default/login/images/loadder/loader_green.gif" alt="Danphe" />
+        <span>Please wait</span>
+    </div>*@
+
+
+<div class="main-wrapper">
+    <div class="row" style="width: 100%; margin: 0;">
+        <div class="col-md-4" style="padding: 0;">
+            <div class="left-img" style="background-image: url('/themes/theme-default/images/login-left.jpg');">
+                <div class="left-img-content">
+                    <h1>CureCloud EMR</h1>
+                    <p>A Complete <b style="color: #00ffa1; font-weight: 700;">Healthcare Management Solution</b> for Hospitals, Clinics and Pharmacy.</p>
+                    <ul class="feature">
+                        <li><span>&#10003;</span>Electronic Medical Records (EMR)</li>
+                        <li><span>&#10003;</span>Patient Registration & ADT</li>
+                        <li><span>&#10003;</span>Billing & GST Invoicing</li>
+                        <li><span>&#10003;</span>Laboratory Information System (LIS)</li>
+                        <li><span>&#10003;</span>Pharmacy Counter POS</li>
+                        <li><span>&#10003;</span>Social Service Unit (SSU) Schemes</li>
+                    </ul>
+                </div>
+                <p class="footer-btm-cprt">
+                    <a class="termscondition" href="#">Terms & Condition</a> &nbsp;|&nbsp;
+                    &copy; Copyright 2026 <a href="#" target="_blank" title="CureCloud Health">CureCloud Health</a>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-8 right-column">
+            <div class="form-wrapper">
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                {
+                    <div class="form-horizontal">
+                        <div class="form-group text-center" style="margin-bottom: 20px;">
+                            <div style="font-family: 'Oswald', sans-serif; font-size: 38px; font-weight: 800; background: linear-gradient(135deg, #10b981, #0d9488); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; letter-spacing: 0.5px; text-transform: uppercase;">CureCloud EMR</div>
+                        </div>
+
+                        <div class="form-group text-center" style="margin-bottom: 30px;">
+                            <h2 style="font-size: 20px; font-weight: 700; color: #1e293b; margin: 0; letter-spacing: -0.5px;">Welcome Back</h2>
+                            <p style="font-size: 13px; color: #64748b; margin: 5px 0 0 0;">Please sign in to access your clinic workspace</p>
+                        </div>
+
+                        @if (message == "login-failed")
+                        {
+                            <div class="alert alert-danger reduce-padding">
+                                <i class="fa fa-exclamation-circle" style="margin-right: 6px;"></i> Invalid username or password!
+                            </div>
+                        }
+                        else if (message == "logout-success")
+                        {
+                            <div class="alert alert-success reduce-padding">
+                                <i class="fa fa-check-circle" style="margin-right: 6px;"></i> Logged out successfully!
+                            </div>
+                        }
+                        else if (message == "user-inactive")
+                        {
+                            <div class="alert alert-danger reduce-padding">
+                                <i class="fa fa-ban" style="margin-right: 6px;"></i> Account deactivated! Please contact admin.
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(expiryNotice))
+                        {
+                            <div class="alert alert-danger reduce-padding">
+                                <i class="fa fa-warning" style="margin-right: 6px;"></i> @expiryNotice
+                            </div>
+                        }
+
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <div class="col-sm-12">
+                                <input class="form-control" name="Username" required type="text" id="username_id" placeholder="Enter username" style="padding-left: 18px;" />
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <div class="col-sm-12">
+                                <input class="form-control" name="password" required type="Password" id="password" placeholder="Enter password" style="padding-left: 18px;" />
+                            </div>
+                            <div class="col-sm-12 rem-me" style="margin-top: 15px;">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.RememberMe)
+                                    Keep me signed in
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 35px; margin-bottom: 25px;">
+                            <div class="col-sm-12" style="display: flex; align-items: center; justify-content: space-between; gap: 15px;">
+                                <a class="c-7" href="@Url.Action("ForgotPassword","Account")" target="_blank">Forgot password?</a>
+                                <button id="login" type="submit" class="btn btn-primary" style="flex: 1; max-width: 150px;">Sign in</button>
+                            </div>
+                        </div>
+
+                        <div style="border-top: 1px solid #f1f5f9; padding-top: 20px; text-align: center; margin-top: 20px;">
+                            <span class="txt-xs">CureCloud EMR &bull; Version 1.0</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Login div-->
+<div class="clear"></div>
+
+<!-- Link JScript-->
+<script>
+    var doc = document.querySelector(".has-error");
+    document.getElementById('username_id').addEventListener("click", function (e) {
+        if (doc) {
+            doc.style.display = "none";
+        }
+    });
+
+    document.getElementById('password').addEventListener("click", function (e) {
+        if (doc) {
+            doc.style.display = "none";
+        }
+    });
+</script>
+<script type="text/javascript" src="~/themes/theme-default/login/js/jquery.min.js"></script>
+<script type="text/javascript" src="~/themes/theme-default/login/components/effect/jquery-jrumble.js"></script>
+<script type="text/javascript" src="~/themes/theme-default/login/components/ui/jquery.ui.min.js"></script>
+<script type="text/javascript" src="~/themes/theme-default/login/components/tipsy/jquery.tipsy.js"></script>
+<script type="text/javascript" src="~/themes/theme-default/login/components/checkboxes/iphone.check.js"></script>
+<script type="text/javascript" src="~/themes/theme-default/login/js/login.js"></script>
