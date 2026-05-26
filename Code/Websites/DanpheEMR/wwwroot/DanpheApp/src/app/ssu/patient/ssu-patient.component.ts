@@ -221,14 +221,26 @@ export class SSU_PatientComponent {
     //or has selected object properly from the dropdown list.
     if (this.selDistrict && this.CountrySubDivisionList) {
       if (typeof (this.selDistrict) == 'string' && this.CountrySubDivisionList.length) {
-        district = this.CountrySubDivisionList.find(a => a.Value == this.selDistrict);
+        district = this.CountrySubDivisionList.find(a => a.Value.toLowerCase() == this.selDistrict.toLowerCase());
       }
-      else if (typeof (this.selDistrict) == 'object')
+      else if (typeof (this.selDistrict) == 'object') {
         district = this.selDistrict;
+      }
       if (district) {
         this.model.CountrySubDivisionId = district.Key;
         this.model.CountrySubDivisionName = district.Value;
+        this.selDistrict = district; // Sync string typing to the selected object
       }
+      else {
+        this.model.CountrySubDivisionId = null;
+        this.model.CountrySubDivisionName = null;
+      }
+    }
+
+    if (this.model.SsuPatientValidator && this.model.SsuPatientValidator.controls['CountrySubDivisionId']) {
+      this.model.SsuPatientValidator.controls['CountrySubDivisionId'].setValue(this.model.CountrySubDivisionId);
+      this.model.SsuPatientValidator.controls['CountrySubDivisionId'].markAsDirty();
+      this.model.SsuPatientValidator.controls['CountrySubDivisionId'].updateValueAndValidity();
     }
   }
   translate(language) {
