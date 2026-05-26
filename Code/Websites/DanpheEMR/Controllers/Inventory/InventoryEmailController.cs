@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.AspNetCore.Mvc;
 using DanpheEMR.ServerModel;
 using DanpheEMR.Utilities;
@@ -46,7 +46,7 @@ namespace DanpheEMR.Controllers
                     value.EmailAddressList.Add(email);
                 }
 
-                var apiKey = "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";
+                var apiKey = Environment.GetEnvironmentVariable("SendGrid_ApiKey") ?? "";
 
                 responseData.Results = _emailService.SendEmail("info@hamshospital.org", value.EmailAddressList,"HAMS HOSPITAL", value.Subject, "", value.Content, apiKey);
                 responseData.Status = "OK";
