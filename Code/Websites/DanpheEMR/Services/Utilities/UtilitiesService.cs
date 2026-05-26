@@ -355,14 +355,16 @@ namespace DanpheEMR.Services.Utilities
         }
         public decimal GetOrganizationDepositBalance(UtilitiesDbContext _utilitiesDbContext, int OrganizationId)
         {
-            var OrganizationsDeposits = _utilitiesDbContext.BillingDepositModel.Where(a => a.CreditOrganizationId == OrganizationId && a.OrganizationOrPatient == ENUM_Deposit_OrganizationOrPatient.Organization)
-                .GroupBy(a => new { a.CreditOrganizationId, a.TransactionType })
+            var OrganizationsDeposits = _utilitiesDbContext.BillingDepositModel
+                .Where(a => a.CreditOrganizationId == OrganizationId && a.OrganizationOrPatient == ENUM_Deposit_OrganizationOrPatient.Organization)
+                .Select(a => new { a.TransactionType, a.InAmount, a.OutAmount })
+                .ToList()
+                .GroupBy(a => a.TransactionType)
                 .Select(a => new
                 {
-                    TransactionType = a.Key.TransactionType,
+                    TransactionType = a.Key,
                     SumInAmount = a.Sum(p => p.InAmount),
                     SumOutAmount = a.Sum(p => p.OutAmount)
-
                 }).ToList();
             decimal totalDepositAmt, totalDepositDeductAmt, totalDepositReturnAmt, currentDepositBalance;
             currentDepositBalance = totalDepositAmt = totalDepositDeductAmt = totalDepositReturnAmt = 0;
