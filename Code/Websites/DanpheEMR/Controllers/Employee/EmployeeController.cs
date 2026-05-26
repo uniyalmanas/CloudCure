@@ -1,4 +1,5 @@
-﻿using DanpheEMR.Core.Configuration;
+using DanpheEMR.CommonTypes;
+using DanpheEMR.Core.Configuration;
 using Microsoft.EntityFrameworkCore;
 using DanpheEMR.DalLayer;
 using DanpheEMR.Security;
@@ -338,59 +339,62 @@ namespace DanpheEMR.Controllers
 
         //}
 
-        // PUT api/values/5
-        //[HttpPut]
-        //public string Put()
-        //{
-        //    MasterDbContext masterDbContext = new MasterDbContext(connString);
-        //    DanpheHTTPResponse<object> responseData = new DanpheHTTPResponse<object>();
-        //    try
-        //    {
-        //        string reqType = this.ReadQueryStringData("reqType");
-        //        int empId = ToInt(this.ReadQueryStringData("empId"));
+        // PUT api/Employee
+        [HttpPut]
+        public IActionResult Put()
+        {
+            DanpheHTTPResponse<object> responseData = new DanpheHTTPResponse<object>();
+            try
+            {
+                int empId = ToInt(this.ReadQueryStringData("empId"));
+                var files = Request.Form.Files;
+                string ImagePath = null;
+                string ImageName = null;
+                if (files.Count != 0)
+                {
+                    DanpheHTTPResponse<object> uploadResponse = FileUploader.Upload(files, "UserProfile\\");
+                    if (uploadResponse.Status == "OK")
+                    {
+                        ImagePath = uploadResponse.Results.ToString();
+                        ImageName = files[0].FileName;
 
+                        EmployeeModel dbemp = _masterDbContext.Employees.Where(a => a.EmployeeId == empId)
+                                                        .FirstOrDefault<EmployeeModel>();
+                        if (dbemp != null)
+                        {
+                            dbemp.ImageFullPath = ImagePath;
+                            dbemp.ImageName = ImageName;
+                            _masterDbContext.Entry(dbemp).State = EntityState.Modified;
+                            _masterDbContext.SaveChanges();
 
-        //        var files = Request.Form.Files;
-        //        string ImagePath = null;
-        //        string ImageName = null;
-        //        if (files.Count != 0)
-        //        {
-        //            //
-        //            DanpheHTTPResponse<object> uploadResponse = FileUploader.Upload(files, "UserProfile\\");
-        //            if (uploadResponse.Status == "OK")
-        //            {
-        //                ImagePath = uploadResponse.Results.ToString();
-        //                ImageName = files[0].FileName;
-
-        //                EmployeeModel dbemp = masterDbContext.Employees.Where(a => a.EmployeeId == empId)
-        //                                                .FirstOrDefault<EmployeeModel>();
-        //                dbemp.ImageFullPath = ImagePath;
-        //                dbemp.ImageName = ImageName;
-        //                masterDbContext.Entry(dbemp).State = EntityState.Modified;
-        //                responseData.Status = "OK";
-        //                masterDbContext.SaveChanges();
-        //                responseData.Results = ImageName;
-        //            }
-        //            else
-        //            {
-        //                throw new Exception("Upload Failed");
-        //            }
-        //        }
-        //        else
-        //        {
-        //            responseData.ErrorMessage = "Upload Failed";
-        //            responseData.Status = "Failed";
-        //        }
-
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        responseData.Status = "Failed";
-        //        responseData.ErrorMessage = ex.Message + " exception details:" + ex.ToString();
-        //    }
-        //    return DanpheJSONConvert.SerializeObject(responseData, true);
-        //}
+                            responseData.Status = "OK";
+                            responseData.Results = ImageName;
+                        }
+                        else
+                        {
+                            responseData.Status = "Failed";
+                            responseData.ErrorMessage = "Employee not found";
+                        }
+                    }
+                    else
+                    {
+                        responseData.Status = "Failed";
+                        responseData.ErrorMessage = uploadResponse.ErrorMessage;
+                    }
+                }
+                else
+                {
+                    responseData.ErrorMessage = "Upload Failed: No files selected";
+                    responseData.Status = "Failed";
+                }
+            }
+            catch (Exception ex)
+            {
+                responseData.Status = "Failed";
+                responseData.ErrorMessage = ex.Message + " exception details:" + ex.ToString();
+            }
+            return Ok(responseData);
+        }
 
 
 
