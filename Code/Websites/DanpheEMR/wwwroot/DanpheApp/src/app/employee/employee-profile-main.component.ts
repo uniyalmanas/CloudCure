@@ -13,8 +13,7 @@ export class EmployeeProfileMainComponent {
 
     public http: HttpClient;
     public userProfileInfo: EmployeeProfile = new EmployeeProfile();
-    /// public pathToImage: string = null;
-    public pathToImage: string = null;
+    public pathToImage: string = "/themes/theme-default/images/user.png";
     public pathclear: boolean = false;
     public showPicChange: boolean = false;
 

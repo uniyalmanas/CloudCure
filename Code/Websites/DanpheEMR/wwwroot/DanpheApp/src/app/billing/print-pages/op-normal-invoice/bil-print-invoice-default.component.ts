@@ -127,11 +127,7 @@ export class Bil_Print_Invoice_DefaultComponent implements OnInit {
   public upiQrCodeBase64: string = null;
   public loadingUpiQr: boolean = false;
 
-  ngOnInit() {
-    if (this.invoice && this.invoice.InvoiceInfo && this.invoice.InvoiceInfo.PaymentMode && this.invoice.InvoiceInfo.PaymentMode.toLowerCase() === 'upi') {
-      this.GenerateUPIQRCode(this.invoice.InvoiceInfo.ReceivedAmount || this.invoice.InvoiceInfo.TotalAmount, this.invoice.InvoiceInfo.InvoiceNumber || this.invoice.InvoiceInfo.BillingTransactionId);
-    }
-  }
+
 
   GenerateUPIQRCode(amount: number, txnId: any) {
     this.loadingUpiQr = true;
@@ -473,6 +469,9 @@ export class Bil_Print_Invoice_DefaultComponent implements OnInit {
 
 
   ngOnInit() {
+    if (this.invoice && this.invoice.InvoiceInfo && this.invoice.InvoiceInfo.PaymentMode && this.invoice.InvoiceInfo.PaymentMode.toLowerCase() === 'upi') {
+      this.GenerateUPIQRCode(this.invoice.InvoiceInfo.ReceivedAmount || this.invoice.InvoiceInfo.TotalAmount, this.invoice.InvoiceInfo.InvoiceNumber || this.invoice.InvoiceInfo.BillingTransactionId);
+    }
 
     if (this.invoice) {
       console.log(this.invoice.InvoiceInfo)
