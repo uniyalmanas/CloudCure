@@ -1,125 +1,226 @@
-<div class="wrapper right-content-wrapper">
+<div class="wrapper right-content-wrapper modern-dashboard-view">
+  
+  <!-- Modern Header Title -->
   <div class="row">
-    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
-      <div class="dashboard-stat dashboard-stat-v2 blue point-cursor">
-        <div class="visual"> <i class="visual_icon"><img src="../../themes/theme-default/images/dashboard_icon/medical.svg" alt=""></i> </div>
-        <div class="details clearfix">
-          <div class="board-title clearfix">
-            <div>
-              <p>Registered Patient </p>
-              <span>Total Patient: {{dsbStats.TotalPatient}} </span>
-            </div>
-            <div class="count">{{dsbStats.TotalPatient}}</div>
-          </div>
-          <div class="left clearfix"> <span>Today : {{dsbStats.TodayPatient}} </span> <span>Yesterday : {{dsbStats.YestardayPatient}} </span> </div>
-          <!-- <div>
-
-            <div class="left">
-              <span>Today : {{dsbStats.TodayPatient}} </span><br />
-              <span>Yesterday : {{dsbStats.YestardayPatient}} </span><br />
-            </div>
--->
-          <!--
-            <div class="right">
-              <span>Total Patient : {{dsbStats.TotalPatient}} </span><br />
-            </div>
-
-          </div>-->
-        </div>
+    <div class="col-md-12">
+      <div class="dashboard-greeting-card">
+        <h2 class="greeting-title">Welcome to CloudCure EMR Dashboard</h2>
+        <p class="greeting-subtitle">Today is {{currentDate}} | Real-time clinical and operational overview</p>
       </div>
     </div>
-    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
-      <div class="dashboard-stat dashboard-stat-v2 red">
-        <div class="visual"> <i class="visual_icon"><img src="../../themes/theme-default/images/dashboard_icon/doctor.svg" alt=""></i> </div>
-        <div class="details clearfix">
-          <!--
-                <div class="board-title clearfix">
-                    Total Doctors : {{dsbStats.TotalDoctorsCount}}
-                </div>
--->
-          <div class="board-title clearfix">
-            <div>
-              <p>Total Doctors</p>
-              <span>Consultants : {{dsbStats.ConsultantsCount}} </span>
-            </div>
-            <div class="count">{{dsbStats.TotalDoctorsCount}}</div>
-          </div>
-          <div class="left clearfix">
-            <!--                        <span>Consultants : {{dsbStats.ConsultantsCount}} </span><br />-->
-            <span>Medical Officers: {{dsbStats.MedicalOfficersCount}} </span> <span>Anaesthetists: {{dsbStats.AnaesthetistsCount}} </span>
-          </div>
-          <!--
-                    <div class="right">
-                        <span>Anaesthetists: {{dsbStats.AnaesthetistsCount}} </span><br />
-                    </div>
--->
-
-        </div>
-        <!--<div class="details">
-        <div class="number">
-            <span data-counter="counterup" data-value="12,5">{{dsbStats.TotalDoctors}}</span>
-        </div>
-        <div class="desc"> Total Doctors </div>
-    </div>-->
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12"> <a class="dashboard-stat dashboard-stat-v2 green">
-        <div class="visual">
-          <div class="visual"> <i class="visual_icon"><img src="../../themes/theme-default/images/dashboard_icon/schedule.svg" alt=""></i> </div>
-        </div>
-        <div class="details clearfix">
-          <div class="board-title clearfix">
-            <div>
-              <p>Today's Appointments</p>
-              <span>New : {{dsbStats.NewAppts}} </span> <span>Follow up : {{dsbStats.FollowUpAppts}} </span> <span>Referrals :
-                {{dsbStats.ReferralAppts}} </span>
-            </div>
-            <div class="count">{{dsbStats.TotalAppts}}</div>
-          </div>
-          <!--      <div style="text-align: center;font-weight: bold;font-size: 17px;margin-bottom:10px;margin-top:5px;"> Today's Appointments : {{dsbStats.TotalAppts}} </div>-->
-
-          <!--
-        <div class="left"> <span>New : {{dsbStats.NewAppts}} </span>
-          <span>Follow up : {{dsbStats.FollowUpAppts}} </span>
-          <span>Referrals : {{dsbStats.ReferralAppts}} </span>
-        </div>
--->
-          <div class="left clearfix"> <span>Cancelled : {{dsbStats.CancelAppts}} </span> <span>Returned : {{dsbStats.ReturnAppts}} </span> </div>
-        </div>
-      </a> </div>
   </div>
-  <div class="clearfix"></div>
-  <!-- END DASHBOARD STATS 1-->
-  <div class="row">
-    <!-- <div *ngIf="showCountryMap" class="col-lg-6 col-md-6">
-      <div class="portlet light">
-        <div class="portlet-title">
-          <div class="caption lb-caption no-margin no-padding"> <i class="icon-bar-chart"></i> <span class="caption-subject"> Patient distribution (zone wise) </span> <span class="caption-helper"></span> </div>
-          <div class="tools"> <a href="javascript:;" class="collapse" data-original-title="" title=""> </a> <a href="javascript:;" class="fullscreen" data-original-title="" title=""> </a> <a href="javascript:;" class="remove" data-original-title="" title=""> </a> </div>
-        </div>
-        <div class="portlet-body">
-          <div id="dvZoneWisePatientMap" class="CSSAnimationChart" style="height:400px;"></div>
+
+  <!-- Modern Stat Cards Section -->
+  <div class="row mt-4">
+    <!-- Stat Card 1: Registered Patients -->
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-4">
+      <app-stat-card 
+        title="Registered Patients"
+        [value]="dsbStats.TotalPatient || '0'"
+        icon="people"
+        color="primary"
+        trend="up"
+        [trendPercent]="15">
+      </app-stat-card>
+      <div class="stat-detail-box">
+        <div class="detail-row">
+          <span>Today: <strong>{{dsbStats.TodayPatient || 0}}</strong></span>
+          <span>Yesterday: <strong>{{dsbStats.YestardayPatient || 0}}</strong></span>
         </div>
       </div>
-    </div> -->
-    <div class="col-lg-6 col-xs-12 col-sm-12">
-      <div class="portlet light">
-        <div class="portlet-title">
-          <div class="caption lb-caption no-margin no-padding"> <i class="icon-bar-chart"></i> <span class="caption-subject"> Department wise
-              appointment count on {{currentDate}} </span> <span class="caption-helper"></span> </div>
-          <div class="tools"> <a href="javascript:;" class="collapse" data-original-title="" title=""> </a> <a href="javascript:;" class="fullscreen"
-               data-original-title="" title=""> </a> <a href="javascript:;" class="remove" data-original-title="" title=""> </a> </div>
+    </div>
+
+    <!-- Stat Card 2: Total Doctors -->
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-4">
+      <app-stat-card 
+        title="Total Doctors"
+        [value]="dsbStats.TotalDoctorsCount || '0'"
+        icon="local_hospital"
+        color="accent"
+        trend="up"
+        [trendPercent]="8">
+      </app-stat-card>
+      <div class="stat-detail-box">
+        <div class="detail-row">
+          <span>Consultants: <strong>{{dsbStats.ConsultantsCount || 0}}</strong></span>
+          <span>Medical Officers: <strong>{{dsbStats.MedicalOfficersCount || 0}}</strong></span>
         </div>
-        <div class="portlet-body">
-          <div id="dvPieChart" class="CSSAnimationChart" style="height:300px;"></div>
+      </div>
+    </div>
+
+    <!-- Stat Card 3: Appointments Today -->
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-4">
+      <app-stat-card 
+        title="Appointments Today"
+        [value]="dsbStats.TotalAppts || '0'"
+        icon="event"
+        color="info"
+        trend="up"
+        [trendPercent]="12">
+      </app-stat-card>
+      <div class="stat-detail-box">
+        <div class="detail-row">
+          <span>New: <strong>{{dsbStats.NewAppts || 0}}</strong></span>
+          <span>Follow up: <strong>{{dsbStats.FollowUpAppts || 0}}</strong></span>
         </div>
       </div>
     </div>
   </div>
-  <!--
-<div class="clearfix"></div>
-<div class="row">
-  <div class="col-lg-6 col-xs-12 col-sm-12"> </div>
+
+  <!-- Charts & Analytics Section -->
+  <div class="row mt-4">
+    
+    <!-- Department Appointments Pie Chart -->
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <mat-card class="analytics-card">
+        <mat-card-header>
+          <div class="caption-header">
+            <mat-icon class="header-icon">pie_chart</mat-icon>
+            <h3>Department Wise Appointments</h3>
+          </div>
+        </mat-card-header>
+        <mat-card-content>
+          <div id="dvPieChart" class="CSSAnimationChart" style="height:320px;"></div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Quick Clinical Actions -->
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <mat-card class="analytics-card">
+        <mat-card-header>
+          <div class="caption-header">
+            <mat-icon class="header-icon">flash_on</mat-icon>
+            <h3>Quick Clinical Shortcuts</h3>
+          </div>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="quick-shortcuts-grid">
+            <a mat-raised-button color="primary" routerLink="/Appointment/CreateAppointment" class="shortcut-btn">
+              <mat-icon>person_add</mat-icon> Register Patient / Visit
+            </a>
+            <a mat-raised-button color="accent" routerLink="/Nursing/InPatient/InPatientList" class="shortcut-btn">
+              <mat-icon>airline_seat_flat</mat-icon> Admitted Patients List
+            </a>
+            <a mat-raised-button routerLink="/Billing/Invoices" class="shortcut-btn">
+              <mat-icon>receipt</mat-icon> Billing & Invoices
+            </a>
+            <a mat-raised-button routerLink="/Pharmacy/Prescription" class="shortcut-btn">
+              <mat-icon>medication</mat-icon> Pharmacy Dispensary
+            </a>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
 </div>
--->
-</div>
+
+<style>
+  .modern-dashboard-view {
+    padding: 10px 20px;
+    background: #f8fafc;
+  }
+  
+  .dashboard-greeting-card {
+    background: linear-gradient(135deg, #1B7A5E, #13C784);
+    border-radius: 16px;
+    padding: 28px;
+    color: white;
+    box-shadow: 0 10px 25px rgba(27, 122, 94, 0.15);
+    margin-bottom: 24px;
+  }
+  
+  .greeting-title {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    font-family: 'Oswald', sans-serif !important;
+  }
+  
+  .greeting-subtitle {
+    margin: 8px 0 0 0;
+    font-size: 15px;
+    opacity: 0.9;
+    font-weight: 400;
+  }
+
+  .stat-detail-box {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 12px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    margin-top: -6px;
+    margin-bottom: 16px;
+  }
+
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #64748b;
+  }
+
+  .analytics-card {
+    background: white !important;
+    border-radius: 16px !important;
+    padding: 24px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    border: 1px solid #e2e8f0 !important;
+    margin-bottom: 24px;
+    min-height: 400px;
+  }
+
+  .caption-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 12px;
+    width: 100%;
+  }
+
+  .header-icon {
+    color: #1B7A5E;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .caption-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    font-family: 'Oswald', sans-serif !important;
+  }
+
+  .quick-shortcuts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding-top: 16px;
+  }
+
+  .shortcut-btn {
+    padding: 24px 16px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02) !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .shortcut-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(13, 148, 136, 0.1) !important;
+  }
+</style>
