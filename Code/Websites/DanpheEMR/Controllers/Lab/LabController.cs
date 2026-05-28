@@ -334,30 +334,43 @@ namespace DanpheEMR.Controllers
             //to view report of a patient
             //else if (reqType == "viewReport-patient")
             //{
-            Func<object> func = () => (from req in _labDbContext.Requisitions
-                              join tst in _labDbContext.LabTests on req.LabTestId equals tst.LabTestId
-                              join temp in _labDbContext.LabReportTemplates on tst.ReportTemplateId
-                              equals temp.ReportTemplateID
-                              where req.PatientId == patientId && tst.ReportTemplateId == temp.ReportTemplateID
-                              select new
-                              {
-                                  TemplateName = temp.ReportTemplateShortName,
-                                  Components = (from res in _labDbContext.LabTestComponentResults
-                                                where res.RequisitionId == req.RequisitionId
-                                                select new
-                                                {
-                                                    Date = req.OrderDateTime,
-                                                    Component = res.ComponentName,
-                                                    Value = res.Value,
-                                                    Unit = res.Unit,
-                                                    Range = res.Range,
-                                                    Remarks = res.Remarks,
-                                                    CreatedOn = res.CreatedOn,
-                                                    RequisitionId = res.RequisitionId,
-                                                    IsAbnormal = res.IsAbnormal
+            Func<object> func = () =>
+            {
+                var reqs = (from req in _labDbContext.Requisitions
+                            join tst in _labDbContext.LabTests on req.LabTestId equals tst.LabTestId
+                            join temp in _labDbContext.LabReportTemplates on tst.ReportTemplateId equals temp.ReportTemplateID
+                            where req.PatientId == patientId && tst.ReportTemplateId == temp.ReportTemplateID
+                            select new
+                            {
+                                RequisitionId = req.RequisitionId,
+                                TemplateName = temp.ReportTemplateShortName,
+                                OrderDateTime = req.OrderDateTime
+                            }).ToList();
 
-                                                }).ToList()
-                              }).ToList();
+                var reqIds = reqs.Select(r => r.RequisitionId).ToList();
+
+                var components = _labDbContext.LabTestComponentResults
+                                    .Where(res => reqIds.Contains(res.RequisitionId))
+                                    .ToList();
+
+                return reqs.Select(r => new
+                {
+                    TemplateName = r.TemplateName,
+                    Components = components.Where(res => res.RequisitionId == r.RequisitionId)
+                                           .Select(res => new
+                                           {
+                                               Date = r.OrderDateTime,
+                                               Component = res.ComponentName,
+                                               Value = res.Value,
+                                               Unit = res.Unit,
+                                               Range = res.Range,
+                                               Remarks = res.Remarks,
+                                               CreatedOn = res.CreatedOn,
+                                               RequisitionId = res.RequisitionId,
+                                               IsAbnormal = res.IsAbnormal
+                                           }).ToList()
+                }).ToList();
+            };
             return InvokeHttpGetFunction<object>(func);
         }
 

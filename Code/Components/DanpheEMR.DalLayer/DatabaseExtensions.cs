@@ -182,6 +182,83 @@ namespace DanpheEMR.DalLayer
                     .HasForeignKey(a => a.PatientVisitId);
             }
 
+            // 2c. Patient relationship explicit foreign key configurations (resolves PatientModelPatientId shadow column generation)
+            var addressType = modelBuilder.Model.FindEntityType(typeof(AddressModel));
+            if (patientType != null)
+            {
+                if (visitType != null)
+                {
+                    modelBuilder.Entity<VisitModel>()
+                        .HasOne<PatientModel>(a => a.Patient)
+                        .WithMany(p => p.Visits)
+                        .HasForeignKey(a => a.PatientId);
+                }
+                if (admissionType != null)
+                {
+                    modelBuilder.Entity<PatientModel>()
+                        .HasMany<AdmissionModel>(p => p.Admissions)
+                        .WithOne()
+                        .HasForeignKey(a => a.PatientId);
+                }
+                if (addressType != null)
+                {
+                    modelBuilder.Entity<AddressModel>()
+                        .HasOne<PatientModel>(a => a.Patient)
+                        .WithMany(p => p.Addresses)
+                        .HasForeignKey(a => a.PatientId);
+                }
+                var labRequisitionType = modelBuilder.Model.FindEntityType(typeof(LabRequisitionModel));
+                if (labRequisitionType != null)
+                {
+                    modelBuilder.Entity<LabRequisitionModel>()
+                        .HasOne<PatientModel>(a => a.Patient)
+                        .WithMany(p => p.LabRequisitions)
+                        .HasForeignKey(a => a.PatientId);
+                }
+                var imagingRequisitionType = modelBuilder.Model.FindEntityType(typeof(ImagingRequisitionModel));
+                if (imagingRequisitionType != null)
+                {
+                    modelBuilder.Entity<ImagingRequisitionModel>()
+                        .HasOne<PatientModel>(a => a.Patient)
+                        .WithMany(p => p.ImagingItemRequisitions)
+                        .HasForeignKey(a => a.PatientId);
+                }
+                var patientFilesType = modelBuilder.Model.FindEntityType(typeof(PatientFilesModel));
+                if (patientFilesType != null)
+                {
+                    modelBuilder.Entity<PatientModel>()
+                        .HasMany<PatientFilesModel>(p => p.UploadedFiles)
+                        .WithOne()
+                        .HasForeignKey(f => f.PatientId);
+                }
+                var allergyType = modelBuilder.Model.FindEntityType(typeof(AllergyModel));
+                if (allergyType != null)
+                {
+                    modelBuilder.Entity<AllergyModel>()
+                        .HasOne<PatientModel>(a => a.Patient)
+                        .WithMany(p => p.Allergies)
+                        .HasForeignKey(a => a.PatientId);
+                }
+                var insuranceType = modelBuilder.Model.FindEntityType(typeof(InsuranceModel));
+                if (insuranceType != null)
+                {
+                    modelBuilder.Entity<InsuranceModel>()
+                        .HasOne<PatientModel>(a => a.Patient)
+                        .WithMany(p => p.Insurances)
+                        .HasForeignKey(a => a.PatientId);
+                }
+                var kinType = modelBuilder.Model.FindEntityType(typeof(KinModel));
+                if (kinType != null)
+                {
+                    modelBuilder.Entity<KinModel>()
+                        .HasOne<PatientModel>(a => a.Patient)
+                        .WithMany(p => p.KinEmergencyContacts)
+                        .HasForeignKey(a => a.PatientId);
+                }
+            }
+
+
+
             // 3. Appointment Database Constraints
             var appointmentType = modelBuilder.Model.FindEntityType(typeof(AppointmentModel));
             if (appointmentType != null)
@@ -214,6 +291,17 @@ namespace DanpheEMR.DalLayer
                       .HasOne<BillingTransactionModel>(s => s.BillingTransaction)
                       .WithMany(s => s.BillingTransactionItems)
                       .HasForeignKey(s => s.BillingTransactionId);
+            }
+
+            // 6. Pharmacy Item Type and Pharmacy Item Master One-to-Many Relationship
+            var phrmItemType = modelBuilder.Model.FindEntityType(typeof(PHRMItemTypeModel));
+            var phrmItemMaster = modelBuilder.Model.FindEntityType(typeof(PHRMItemMasterModel));
+            if (phrmItemType != null && phrmItemMaster != null)
+            {
+                modelBuilder.Entity<PHRMItemTypeModel>()
+                    .HasMany<PHRMItemMasterModel>(t => t.Items)
+                    .WithOne()
+                    .HasForeignKey(i => i.ItemTypeId);
             }
         }
 

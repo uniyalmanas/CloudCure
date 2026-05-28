@@ -295,10 +295,18 @@ export class AppointmentCreateComponent {
     this.CurrentAppointment.IsValidTime();
   }
 
+  compareDepartment(dept1: any, dept2: any): boolean {
+    return dept1 && dept2 ? dept1.DepartmentId === dept2.DepartmentId : dept1 === dept2;
+  }
+
+  compareDoctor(doc1: any, doc2: any): boolean {
+    return doc1 && doc2 ? doc1.PerformerId === doc2.PerformerId : doc1 === doc2;
+  }
+
   public AssignSelectedDoctor() {
     this.filteredDocList;
     let doctor = null;
-    if (this.selectedDoctor == "" || this.selectedDoctor == undefined) {
+    if (this.selectedDoctor == "" || this.selectedDoctor == undefined || this.selectedDoctor == null) {
       this.filteredDocList = this.doctorList = this.visitService.ApptApplicableDoctorsList;
       this.aptList = new Array<Appointment>();
       this.CurrentAppointment.IsValidSelProvider = true;
@@ -325,7 +333,12 @@ export class AppointmentCreateComponent {
         doctor = this.doctorList.find(a => a.PerformerId == this.selectedDoctor.PerformerId);
       if (doctor) {
         this.departmentId = doctor.DepartmentId;
-        this.selectedDepartment = doctor.DepartmentName;
+        let dept = this.departmentList.find(d => d.DepartmentId == doctor.DepartmentId);
+        if (dept) {
+          this.selectedDepartment = dept;
+        } else {
+          this.selectedDepartment = { DepartmentId: doctor.DepartmentId, DepartmentName: doctor.DepartmentName };
+        }
         this.filteredDocList = this.doctorList.filter(doc => doc.DepartmentId == this.departmentId);
         this.selectedDoctor = Object.assign(this.selectedDoctor, doctor);
         this.CurrentAppointment.PerformerId = doctor.PerformerId;//this will give providerid

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -105,18 +105,21 @@ namespace DanpheEMR.Controllers
                     otDetails.CreatedBy = currentUser.EmployeeId;
                     //dbContext.OtTeamDetails.Add(otDetails.OtTeam);
 
-                    _operationTheaterDbContext.OtBookingList.Add(otDetails);
+                    var teamList = otDetails.OtTeam;
+                    otDetails.OtTeam = null;
 
-                    if (otDetails.OtTeam.Count > 0)
-                    {
-                        OTTeamsModel teaminfo = new OTTeamsModel();
-                        foreach (var data in otDetails.OtTeam)
-                        {
-                            teaminfo = data;
-                        }
-                        _operationTheaterDbContext.OtTeamDetails.Add(teaminfo);
-                    }
+                    _operationTheaterDbContext.OtBookingList.Add(otDetails);
                     _operationTheaterDbContext.SaveChanges();
+
+                    if (teamList != null && teamList.Count > 0)
+                    {
+                        foreach (var teaminfo in teamList)
+                        {
+                            teaminfo.OTBookingId = otDetails.OTBookingId;
+                            _operationTheaterDbContext.OtTeamDetails.Add(teaminfo);
+                        }
+                        _operationTheaterDbContext.SaveChanges();
+                    }
 
                     dbContextTransaction.Commit();
                     return otDetails;

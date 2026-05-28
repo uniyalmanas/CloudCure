@@ -16,7 +16,7 @@ export class OperationTheatreDLService {
   }
 
   public GetIcdList() {
-    return this.http.get<any>("/api/Admission?reqType=get-icd10-list");
+    return this.http.get<any>("/api/Admission/ICD10");
   }
 
   public GetAllOTBookingDetails() {

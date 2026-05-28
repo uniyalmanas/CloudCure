@@ -84,6 +84,7 @@ namespace DanpheEMR.ServerModel
         public List<InsuranceModel> Insurances { get; set; }
         public List<KinModel> KinEmergencyContacts { get; set; }
         public List<VisitModel> Visits { get; set; }
+        [ForeignKey("PatientId")]
         public List<AdmissionModel> Admissions { get; set; }
 
         public virtual GuarantorModel Guarantor { get; set; }

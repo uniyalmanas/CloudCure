@@ -1,4 +1,4 @@
-﻿<div class="wrapper">
+<div class="wrapper">
   <div class="row">
     <div class="col-md-12">
       <div class="row">
@@ -9,7 +9,7 @@
                 <div class="row">
                   <!-- @* INSURANCE   PROVIDER*@ -->
                   <div class="form-group">
-                    <label class="control-label col-md-4">Insurance Provider<sup>*</sup><b>:</b></label>
+                    <label class="control-label col-md-4">Insurance Provider<b>:</b></label>
                     <div class="col-md-8">
                       <select class="form-control" [(ngModel)]="currentInsurance.InsuranceProviderId" formControlName="InsuranceProviderId">
                         <option *ngFor="let insu of insProviderList"
@@ -27,7 +27,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-md-4">Card Number [{{GeneralFieldLabel.NTSCNo}}]<sup>*</sup><b>:</b></label>
+                    <label class="control-label col-md-4">Card Number [{{GeneralFieldLabel.NTSCNo}}]<b>:</b></label>
                     <div class="col-md-8">
                       <input class="form-control" autofocus (keyup.enter)="GoToNextInput('InsuranceNumber')" type="text" formControlName="CardNumber"
                              [(ngModel)]="currentInsurance.CardNumber"
@@ -37,7 +37,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-md-4">Insurance Number [{{GeneralFieldLabel.NSSINo}}.]<sup>*</sup><b>:</b></label>
+                    <label class="control-label col-md-4">Insurance Number [{{GeneralFieldLabel.NSSINo}}.]<b>:</b></label>
                     <div class="col-md-8">
                       <input class="form-control" id="InsuranceNumber" (keyup.enter)="GoToNextInput('IMISNumber')" type="text"
                              formControlName="InsuranceNumber" [(ngModel)]="currentInsurance.InsuranceNumber"
@@ -47,7 +47,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-md-4">{{GeneralFieldLabel.IMISCode}}<sup>*</sup><b>:</b></label>
+                    <label class="control-label col-md-4">{{GeneralFieldLabel.IMISCode}}<b>:</b></label>
                     <div class="col-md-8">
                       <input class="form-control" id="IMISNumber" (keyup.enter)="GoToNextInput('InitialBalance')" type="text"
                              formControlName="IMISCode" [(ngModel)]="currentInsurance.IMISCode"
@@ -57,7 +57,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-md-4">Initial Balance<sup>*</sup><b>:</b></label>
+                    <label class="control-label col-md-4">Initial Balance<b>:</b></label>
                     <div class="col-md-8">
                       <input class="form-control" id="InitialBalance" type="number" formControlName="InitialBalance"
                              [(ngModel)]="currentInsurance.InitialBalance"

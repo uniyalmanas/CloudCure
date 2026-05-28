@@ -21,17 +21,85 @@
 </style>
 <div class="row" >
   <div class="col-md-12">
-    <form class="form-horizontal">
-      
-      <h3 class="text-head" style="text-align:center">Free Text Note</h3>
-      <div class="form-body">
+    <!-- CureCloud AI Clinical SOAP Note Scribe -->
+    <div class="portlet box green" style="border: 1px solid #10b981 !important; border-left: 4px solid #10b981 !important; margin-bottom: 25px;">
+      <div class="portlet-title" style="background: linear-gradient(135deg, #10b981, #059669) !important; color: white !important; padding: 12px 20px;">
+        <div class="caption" style="display: flex; align-items: center; gap: 8px;">
+          <i class="fa fa-magic" style="font-size: 16px;"></i>
+          <span style="font-weight: 700;">CureCloud AI Clinical SOAP Note Scribe</span>
+        </div>
+      </div>
+      <div class="portlet-body" style="padding: 20px; background-color: #f8fafc;">
+        <p style="font-size: 13.5px; color: #4b5563; margin-bottom: 15px; font-family: inherit;">
+          Type or paste your unstructured clinical notes, check-in complaints, or raw vitals below. The AI Medical Scribe will automatically extract clinical terms and format them into a structured <b>SOAP (Subjective, Objective, Assessment, Plan)</b> medical note.
+        </p>
+        <div class="form-group" style="margin-bottom: 15px;">
+          <textarea class="form-control" 
+                    [(ngModel)]="rawUnstructuredText" 
+                    [ngModelOptions]="{standalone: true}" 
+                    rows="5" 
+                    placeholder="Example: Patient is 45 year old male, complains of headache and dry cough for 3 days. Throat is congested. BP is 120/80. Plan: Paracetamol 500mg TDS for 3 days..."
+                    style="border-radius: 8px; border: 1.5px solid #cbd5e1; font-family: inherit; font-size: 13.5px; padding: 12px; width: 100%; resize: vertical; height: 110px;"></textarea>
+        </div>
+        <div style="text-align: right;">
+          <button class="btn btn-success" 
+                  (click)="generateAISoapNote()" 
+                  [disabled]="isAiProcessing || !rawUnstructuredText"
+                  style="background: linear-gradient(135deg, #10b981, #059669) !important; color: white !important; font-weight: 600; padding: 10px 20px; border-radius: 8px !important; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3) !important; border: none !important;">
+            <i class="fa" [ngClass]="isAiProcessing ? 'fa-spinner fa-spin' : 'fa-magic'"></i>
+            <span>{{ isAiProcessing ? ' AI Scribe analyzing...' : ' ✨ Generate SOAP Note' }}</span>
+          </button>
+        </div>
 
-        <div class="form-group">
-          <label class="control-label col-md-2">Free Text<b>:</b></label>
-          <!--<div class="col-md-12">
-    <textarea class="form-control" [(ngModel)]="freeText.FreeText" (focusout)="Focusout()"  [ngModelOptions]="{standalone: true}" maxlength="2000" rows="10" cols="100"></textarea>
-  </div>-->
-          <div class="editor-content">
+        <!-- AI Preview Section -->
+        <div *ngIf="showAiPreview" style="margin-top: 20px; padding: 20px; background: white; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+          <h4 style="font-weight: 700; color: #0f172a; border-bottom: 1.5px solid #f1f5f9; padding-bottom: 8px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; font-size: 15px;">
+            <span style="display:inline-block; width:10px; height:10px; background:#10b981; border-radius:50%;"></span>
+            Generated SOAP Note Preview
+          </h4>
+          <div class="row">
+            <div class="col-md-6" style="margin-bottom: 15px;">
+              <div style="background: #f0fdf4; padding: 12px; border-radius: 8px; border-left: 4px solid #10b981; height: 100%;">
+                <h5 style="font-weight: 700; color: #065f46; margin-top: 0; margin-bottom: 6px; font-size: 13px;">[S] Subjective</h5>
+                <p style="font-size: 12.5px; color: #047857; margin: 0; white-space: pre-line; font-family: inherit; line-height: 1.5;">{{ aiSoapParts.subjective }}</p>
+              </div>
+            </div>
+            <div class="col-md-6" style="margin-bottom: 15px;">
+              <div style="background: #eff6ff; padding: 12px; border-radius: 8px; border-left: 4px solid #3b82f6; height: 100%;">
+                <h5 style="font-weight: 700; color: #1e3a8a; margin-top: 0; margin-bottom: 6px; font-size: 13px;">[O] Objective</h5>
+                <p style="font-size: 12.5px; color: #1d4ed8; margin: 0; white-space: pre-line; font-family: inherit; line-height: 1.5;">{{ aiSoapParts.objective }}</p>
+              </div>
+            </div>
+            <div class="col-md-6" style="margin-bottom: 15px;">
+              <div style="background: #fdf2f8; padding: 12px; border-radius: 8px; border-left: 4px solid #ec4899; height: 100%;">
+                <h5 style="font-weight: 700; color: #831843; margin-top: 0; margin-bottom: 6px; font-size: 13px;">[A] Assessment</h5>
+                <p style="font-size: 12.5px; color: #be185d; margin: 0; white-space: pre-line; font-family: inherit; line-height: 1.5;">{{ aiSoapParts.assessment }}</p>
+              </div>
+            </div>
+            <div class="col-md-6" style="margin-bottom: 15px;">
+              <div style="background: #fffbeb; padding: 12px; border-radius: 8px; border-left: 4px solid #f59e0b; height: 100%;">
+                <h5 style="font-weight: 700; color: #78350f; margin-top: 0; margin-bottom: 6px; font-size: 13px;">[P] Plan</h5>
+                <p style="font-size: 12.5px; color: #b45309; margin: 0; white-space: pre-line; font-family: inherit; line-height: 1.5;">{{ aiSoapParts.plan }}</p>
+              </div>
+            </div>
+          </div>
+          <div style="text-align: right; margin-top: 10px;">
+            <button class="btn btn-primary" (click)="applyAiSoapToEditor()" style="background: linear-gradient(135deg, #3b82f6, #2563eb) !important; color: white !important; font-weight: 600; padding: 8px 16px; border-radius: 8px !important; border: none !important;">
+              <i class="fa fa-check"></i> Apply to Editor
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Free Text Editor -->
+    <form class="form-horizontal">
+      <h3 class="text-head" style="text-align:center; font-weight: 700; color: #0f172a; margin-bottom: 15px;">Free Text Note</h3>
+      <div class="form-body" style="background: white; border-radius: 12px; border: 1px solid #cbd5e1; padding: 20px;">
+        <div class="form-group" style="margin-bottom: 0px;">
+          <label class="control-label col-md-2" style="font-weight: 600; color: #374151; font-size: 13.5px;">Free Text<b>:</b></label>
+          <div class="editor-content col-md-10">
             <div class="row">
               <div class="col-md-12 col-xs-12 col-sm-12" style="min-height:460px;">
                 <danphe-ckeditor *ngIf="showCKeditor"
@@ -39,7 +107,6 @@
                                  (get-html-content)="onChangeEditorData($event)"
                                  [set-html-content]="freeText.FreeText">
                 </danphe-ckeditor>
-                <!--(get-shortcut)="onShortCutPressed($event)"    // shortcut feature not used currently-->
               </div>
             </div>
           </div>
@@ -47,7 +114,7 @@
       </div>
     </form>
   </div>
-  </div>
+</div>
 
 
 

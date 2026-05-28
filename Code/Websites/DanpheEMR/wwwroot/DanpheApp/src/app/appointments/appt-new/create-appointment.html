@@ -212,38 +212,30 @@
               <div class="form-group">
                 <label class="control-label col-md-3">Department<b>:</b></label>
                 <div class="col-md-9">
-                  <input class="form-control" danphe-auto-complete
-                         [ngClass]="!CurrentAppointment.IsValidSelDepartment? 'bg-on' : 'bg-off'"
-                         [(ngModel)]="selectedDepartment"
-                         [list-formatter]="myDepartmentListFormatter"
-                         [source]="departmentList"
-                         [ngModelOptions]="{standalone: true}"
-                         placeholder="Department Name"
-                         display-property-name="DepartmentName"
-                         (focusout)="AssignSelectedDepartment()"
-                         onClick="this.select()"
-                         (focus)="AssignSelectedDepartment()"
-                         match-formatted="true"
-                         [grid-sort]="'DepartmentName'"
-                         max-num-list="10" />
+                  <select class="form-control"
+                          [ngClass]="!CurrentAppointment.IsValidSelDepartment? 'bg-on' : 'bg-off'"
+                          [(ngModel)]="selectedDepartment"
+                          [ngModelOptions]="{standalone: true}"
+                          (change)="AssignSelectedDepartment()"
+                          [compareWith]="compareDepartment">
+                    <option [ngValue]="null">--Select Department--</option>
+                    <option *ngFor="let dept of departmentList" [ngValue]="dept">{{dept.DepartmentName}}</option>
+                  </select>
                   <!--<span class="color-red font-sm" *ngIf="CurrentAppointment.IsDirty('Doctor')" [hidden]="CurrentAppointment.IsValidCheck('Department','required')">Department is mandatory.</span>--> 
                   <span class="color-red" *ngIf="!CurrentAppointment.IsValidSelDepartment" [hidden]="CurrentAppointment.IsValidSelDepartment">Select Department from the list.</span> </div>
               </div>
               <div class="form-group">
                 <label class="control-label col-md-3">Doctor<b>:</b></label>
                 <div class="col-md-9">
-                  <input class="form-control" danphe-auto-complete
-                         [ngClass]="!CurrentAppointment.IsValidSelProvider? 'bg-on' : 'bg-off'"
-                         [ngModelOptions]="{standalone: true}"
-                         [(ngModel)]="selectedDoctor"
-                         [list-formatter]="DocListFormatter"
-                         [source]="filteredDocList"
-                         placeholder="Doctor's Name"
-                         display-property-name="PerformerName"
-                         (focusout)="AssignSelectedDoctor()"
-                         onClick="this.select()"
-                         (focus)="AssignSelectedDoctor()"
-                         max-num-list="10" />
+                  <select class="form-control"
+                          [ngClass]="!CurrentAppointment.IsValidSelProvider? 'bg-on' : 'bg-off'"
+                          [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="selectedDoctor"
+                          (change)="AssignSelectedDoctor()"
+                          [compareWith]="compareDoctor">
+                    <option [ngValue]="null">--Select Doctor--</option>
+                    <option *ngFor="let doc of filteredDocList" [ngValue]="doc">{{doc.PerformerName}}</option>
+                  </select>
                   <!--<span class="color-red font-sm" *ngIf="visit.IsDirty('Doctor')" [hidden]="visit.IsValidCheck('Doctor','required')">Doctor is mandatory.</span>--> 
                   <span class="color-red" *ngIf="!CurrentAppointment.IsValidSelProvider" [hidden]="CurrentAppointment.IsValidSelProvider">Select doctor from the list.</span> </div>
               </div>

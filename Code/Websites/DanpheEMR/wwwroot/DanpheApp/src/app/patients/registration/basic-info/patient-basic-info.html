@@ -182,27 +182,6 @@
               </div>
             </div>
 
-            <div class="form-group" *ngIf="showMunicipality">
-              <label for="municipality" class="control-label col-md-4">{{GeneralFieldLabel.Municipality}} <b>:</b></label>
-              <div class="col-md-8">
-                <municipality-select *ngIf="model" [municipalityId]='model.MunicipalityId'
-                                     [subDivisionId]='model.CountrySubDivisionId' (valueChange)="updateMunicipality($event)">
-                </municipality-select>
-              </div>
-            </div>
-
-            <div class="form-group" *ngIf="showMunicipality">
-              <label for="WardNumber" class="control-label col-md-4">Ward Number <b>:</b></label>
-              <div class="col-md-8">
-                <input class="form-control" type="number" maxlength="2" id="WardNumber"
-                       (keyup.enter)="GoToNextInput('Address')" [(ngModel)]="model.WardNumber"
-                       formControlName="WardNumber" placeholder="Ward Number"
-                       (wheel)="coreService.PreventNumberChangeOnScroll($event)" />
-                <span class="color-red font-sm" *ngIf="model.IsDirty('WardNumber')"
-                      [hidden]="model.IsValidCheck('WardNumber','pattern')"> Enter valid Ward Number</span>
-
-              </div>
-            </div>
 
             <div class="form-group">
               <label class="control-label col-md-4">Address<b>:</b></label>
@@ -269,19 +248,6 @@
                              [selected-id]="model.MembershipTypeId" (on-membership-change)="OnMembershipChanged($event)"
                              [is-mandatory]="membershipSchemeParam.IsMandatory" (on-enter-key-pressed)="onEnterKeyPressedFromMembership($event)">
               </scheme-select> -->
-            </div>
-            <div class="form-group">
-              <label class="control-label col-md-4">{{GeneralFieldLabel.Caste}}<b>:</b></label>
-              <div class="col-md-8">
-                <select class="form-control" [(ngModel)]="model.EthnicGroup" [ngModelOptions]="{standalone: true}">
-                  <option value="Dalit">Dalit</option>
-                  <option value="JanaJaati">JanaJaati</option>
-                  <option value="Madhesi">Madhesi</option>
-                  <option value="Muslim">Muslim</option>
-                  <option value="Brahmin/Chhetri">Brahmin/Chhetri</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-4">Marital status<b>:</b></label>

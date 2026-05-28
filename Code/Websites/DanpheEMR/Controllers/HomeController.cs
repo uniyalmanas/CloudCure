@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -72,8 +72,8 @@ namespace DanpheEMR.Controllers
 
         public FileStreamResult GetUserManual()
         {
-            FileStream usrManual = new FileStream("wwwroot\\fileuploads\\DanpheEMR_UserManual.pdf", FileMode.Open);
-            return new FileStreamResult(usrManual,"application/pdf");
+            FileStream usrManual = new FileStream("wwwroot\\fileuploads\\CureCloud_EMR_UserManual.html", FileMode.Open);
+            return new FileStreamResult(usrManual,"text/html");
         }
 
 

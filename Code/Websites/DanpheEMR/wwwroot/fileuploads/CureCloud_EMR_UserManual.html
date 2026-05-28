@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CureCloud EMR - Comprehensive User Manual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0d9488;
+            --primary-light: #14b8a6;
+            --secondary: #10b981;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 50px 30px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(13, 148, 136, 0.15);
+        }
+
+        .header h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 42px;
+            margin: 0 0 10px 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .header p {
+            font-size: 18px;
+            font-weight: 400;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 40px;
+            height: fit-content;
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(13, 148, 136, 0.03);
+        }
+
+        .sidebar h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(13, 148, 136, 0.1);
+            padding-bottom: 10px;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 12px;
+        }
+
+        .sidebar a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            display: block;
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
+        .sidebar a:hover {
+            color: var(--primary);
+            background: rgba(13, 148, 136, 0.05);
+            transform: translateX(4px);
+        }
+
+        .content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 40px -15px rgba(13, 148, 136, 0.05);
+        }
+
+        section {
+            margin-bottom: 50px;
+            scroll-margin-top: 40px;
+        }
+
+        section:not(:last-child) {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 40px;
+        }
+
+        h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 26px;
+            color: var(--dark);
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+            text-transform: uppercase;
+        }
+
+        h4 {
+            font-size: 16px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 15px;
+            color: #475569;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        ul.list-checks {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul.list-checks li {
+            position: relative;
+            padding-left: 28px;
+            font-size: 14.5px;
+            color: #475569;
+            margin-bottom: 10px;
+        }
+
+        ul.list-checks li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 18px;
+            height: 18px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(13, 148, 136, 0.1);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .badge-ai {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            box-shadow: 0 4px 10px rgba(13, 148, 136, 0.2);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--gray);
+            font-size: 13px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: relative;
+                top: 0;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>CureCloud EMR User Manual</h1>
+        <p>Your Comprehensive Guide to Navigating and Managing Your Healthcare Platform</p>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#intro">1. Introduction</a></li>
+                <li><a href="#registration">2. Patient Registration</a></li>
+                <li><a href="#billing">3. Billing & Invoicing</a></li>
+                <li><a href="#scribe">4. AI Clinical SOAP Scribe</a></li>
+                <li><a href="#customization">5. Layout & Themes</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <section id="intro">
+                <h2>1. Introduction to CureCloud EMR</h2>
+                <span class="badge">Platform Overview</span>
+                <p>CureCloud EMR is a state-of-the-art Electronic Medical Records and Healthcare Management solution designed to unify patient care workflows. Spanning clinical documentation, billing operations, laboratory reports, and social service scheme support, CureCloud EMR optimizes efficiency with an elegant, responsive interface tailored for high-performance medical teams.</p>
+                <div class="card">
+                    <h3>Key Highlights:</h3>
+                    <ul class="list-checks">
+                        <li>**Teal-Emerald Color Scheme**: A vibrant, high-contrast visual brand designed to reduce eye fatigue during long clinical shifts.</li>
+                        <li>**Outfit Typography**: Elegant, readable modern sans-serif typography across the entire portal.</li>
+                        <li>**AI-Powered Automation**: Interactive AI Clinical SOAP Note Scribe to streamline documentation.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="registration">
+                <h2>2. Patient Registration & Intake</h2>
+                <span class="badge">Registration Module</span>
+                <p>Registering new patients is designed to be as swift as possible, capturing essential identifiers while maintaining focus order speed.</p>
+                
+                <div class="card">
+                    <h3>Basic Information Form:</h3>
+                    <p>Captures patient demographic details. To improve speed and ease of use, outdated Caste and local Municipality selections have been retired.</p>
+                    <ul class="list-checks">
+                        <li>**Focus Order Navigation**: Tabbing transitions focus cleanly from District/State dropdown fields directly into the Address textbox.</li>
+                        <li>**Retired Fields**: Avoids clutter by omitting optional Municipality and Caste selectors.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Insurance Information Form:</h3>
+                    <p>Allows seamless integration of national health schemes. All required asterisks (`*`) have been removed to avoid visual clutter.</p>
+                    <ul class="list-checks">
+                        <li>**Automatic Config Seeding**: The insurance provider lookup dropdown comes fully pre-seeded with Government Insurance options, completely eliminating lookup failures.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="billing">
+                <h2>3. Billing & Invoicing</h2>
+                <span class="badge">Billing Module</span>
+                <p>The billing and invoicing system supports standard clinical billing operations, credit tracking, and social service discounts.</p>
+                <div class="card">
+                    <h3>Features:</h3>
+                    <ul class="list-checks">
+                        <li>**Vercel-Style Invoices**: Billing statements are cleanly formatted with slate typography and robust emerald-teal highlight borders.</li>
+                        <li>**Persistent Price Categories**: Prices adapt dynamically to the patient's membership discount schemes.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="scribe">
+                <h2>4. AI Clinical SOAP Note Scribe</h2>
+                <span class="badge badge-ai">Advanced AI Feature</span>
+                <p>The AI Clinical SOAP Scribe is an interactive documentation helper. It utilizes natural language parsing to compile raw, unstructured clinical notes into clinical SOAP blocks inside the CKEditor.</p>
+                
+                <div class="card">
+                    <h3>How to Use the Scribe:</h3>
+                    <p>1. **Navigate to the FreeText Note Template** in the Clinical module.</p>
+                    <p>2. **Locate the AI Medical Scribe Panel** at the top of the editor.</p>
+                    <p>3. **Type or Paste Raw Unstructured Notes** inside the text area (e.g., *'45 y/o male with sudden onset chest pain since yesterday. BP is 130/85, pulse 80. Clear lungs. Prescribed Aspirin.'*).</p>
+                    <p>4. **Click the 'Generate AI SOAP Note' Button**. The AI engine will parse the text and load color-coded clinical blocks below:</p>
+                    <ul class="list-checks">
+                        <li><b style="color: #0284c7;">Subjective Card</b>: Age, gender, complaints, onset timeline.</li>
+                        <li><b style="color: #0d9488;">Objective Card</b>: Vital signs (BP, Pulse) and physical exam findings.</li>
+                        <li><b style="color: #b45309;">Assessment Card</b>: Primary diagnostic impressions.</li>
+                        <li><b style="color: #4f46e5;">Plan Card</b>: Therapeutic prescriptions and follow-up schedules.</li>
+                    </ul>
+                    <p>5. **Click 'Apply SOAP to Editor'**. The scribe compiles the reviewed sections into a stunning HTML clinical card and injects it instantly inside your CKEditor workspace.</p>
+                </div>
+            </section>
+
+            <section id="customization">
+                <h2>5. Layout Customization & Settings</h2>
+                <span class="badge">Personalization</span>
+                <p>Make your clinic workspace feel exactly how you want it with localized personalization controls.</p>
+                <div class="card">
+                    <h3>Dashboard Features:</h3>
+                    <ul class="list-checks">
+                        <li>**Hover-Translating Micro-animations**: Moving your cursor over cards elevates them by `2px` with a soft teal glowing shadow, giving an active visual response.</li>
+                        <li>**Teal Focus Rings**: All inputs highlight with a soft teal ring on click.</li>
+                        <li>**Custom Branding**: Customized hospital logo and Oswald header typography are fully integrated across all menus.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2026 CureCloud Health. All rights reserved. EMR Version 1.0.
+    </div>
+
+</body>
+</html>

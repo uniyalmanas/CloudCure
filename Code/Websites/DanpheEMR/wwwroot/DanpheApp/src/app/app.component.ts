@@ -441,7 +441,7 @@ export class AppComponent {
         let blob = data;
         let a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = "DanpheEMR-UserManual.pdf";
+        a.download = "CureCloud-EMR-User-Manual.html";
         document.body.appendChild(a);
         a.click();
       },

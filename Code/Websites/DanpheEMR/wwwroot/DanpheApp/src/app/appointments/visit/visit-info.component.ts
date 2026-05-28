@@ -235,6 +235,14 @@ export class VisitInfoComponent implements OnInit {
     }
   }
 
+  compareDepartment(dept1: any, dept2: any): boolean {
+    return dept1 && dept2 ? dept1.DepartmentId === dept2.DepartmentId : dept1 === dept2;
+  }
+
+  compareDoctor(doc1: any, doc2: any): boolean {
+    return doc1 && doc2 ? doc1.PerformerId === doc2.PerformerId : doc1 === doc2;
+  }
+
   public AssignSelectedDoctor() {
     let doctor = null;
     // check if user has given proper input string for item name
@@ -249,7 +257,12 @@ export class VisitInfoComponent implements OnInit {
       if (doctor) {
         //to filter doctor List after department is changed (flow: assigning department by selecting doctor).
         this.departmentId = doctor.DepartmentId;
-        this.selectedDepartment = doctor.DepartmentName;
+        let dept = this.departmentList.find(d => d.DepartmentId == doctor.DepartmentId);
+        if (dept) {
+          this.selectedDepartment = dept;
+        } else {
+          this.selectedDepartment = { DepartmentId: doctor.DepartmentId, DepartmentName: doctor.DepartmentName };
+        }
         this.filteredDocList = this.doctorList.filter(doc => doc.DepartmentId == this.departmentId);
         this.selectedDoctor = Object.assign(this.selectedDoctor, doctor);
         this.visit.PerformerId = doctor.PerformerId;//this will give providerid
