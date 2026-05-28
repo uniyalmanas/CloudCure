@@ -1,0 +1,140 @@
+// ========================================
+// Modern Login Page Template
+// Material Design Healthcare Theme
+// ========================================
+
+<div class="login-container">
+  <div class="login-wrapper">
+    <!-- Left Branding Section -->
+    <div class="login-branding">
+      <div class="branding-content">
+        <div class="hospital-logo">
+          <mat-icon class="logo-icon">local_hospital</mat-icon>
+        </div>
+        <h1>Danphe EMR</h1>
+        <p>Hospital Management & Electronic Medical Records</p>
+        
+        <div class="features-list">
+          <div class="feature-item">
+            <mat-icon>check_circle</mat-icon>
+            <span>Secure Patient Records</span>
+          </div>
+          <div class="feature-item">
+            <mat-icon>check_circle</mat-icon>
+            <span>Real-time Appointments</span>
+          </div>
+          <div class="feature-item">
+            <mat-icon>check_circle</mat-icon>
+            <span>Integrated Billing System</span>
+          </div>
+          <div class="feature-item">
+            <mat-icon>check_circle</mat-icon>
+            <span>HIPAA Compliant</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Login Form Section -->
+    <div class="login-form-section">
+      <mat-card class="login-card">
+        <mat-card-content>
+          <h2>Welcome Back</h2>
+          <p class="subtitle">Sign in to your healthcare account</p>
+
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <!-- Username Field -->
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Username or Email</mat-label>
+              <input 
+                matInput 
+                formControlName="username"
+                placeholder="Enter your username"
+                autocomplete="username">
+              <mat-icon matSuffix>person</mat-icon>
+              <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+                Username is required
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Password Field -->
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Password</mat-label>
+              <input 
+                matInput 
+                [type]="passwordVisible ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="Enter your password"
+                autocomplete="current-password">
+              <button 
+                mat-icon-button 
+                matSuffix 
+                (click)="passwordVisible = !passwordVisible"
+                type="button">
+                <mat-icon>{{ passwordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+              <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                Password is required
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Remember Me & Forgot Password -->
+            <div class="form-footer">
+              <mat-checkbox formControlName="rememberMe">
+                Remember me
+              </mat-checkbox>
+              <a href="/forgot-password" class="forgot-link">Forgot password?</a>
+            </div>
+
+            <!-- Error Message -->
+            <div *ngIf="errorMessage" class="error-alert">
+              <mat-icon>error_outline</mat-icon>
+              <span>{{ errorMessage }}</span>
+            </div>
+
+            <!-- Login Button -->
+            <button 
+              mat-raised-button 
+              color="primary" 
+              type="submit"
+              [disabled]="loginForm.invalid || isLoading"
+              class="login-button">
+              <mat-spinner 
+                *ngIf="isLoading" 
+                diameter="16"
+                class="button-spinner">
+              </mat-spinner>
+              <span *ngIf="!isLoading">Sign In</span>
+            </button>
+
+            <!-- Sign Up Link -->
+            <p class="signup-text">
+              Don't have an account? 
+              <a href="/register">Create one</a>
+            </p>
+          </form>
+
+          <!-- Two Factor Auth (if needed) -->
+          <mat-divider class="my-4"></mat-divider>
+          
+          <div class="security-info">
+            <mat-icon>shield</mat-icon>
+            <span>Two-Factor Authentication Available</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Footer -->
+      <div class="login-footer">
+        <p>&copy; 2024 Danphe Hospital Management System. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <span class="separator">•</span>
+          <a href="#">Terms of Service</a>
+          <span class="separator">•</span>
+          <a href="#">Contact Support</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

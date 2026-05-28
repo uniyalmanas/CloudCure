@@ -1,0 +1,517 @@
+// ========================================
+// Danphe EMR - Global Modern Styles
+// Healthcare Green Material Design
+// ========================================
+
+// Import theme first
+@import '_theme';
+
+// ========================================
+// Design Tokens
+// ========================================
+
+// Spacing Scale
+$spacing: (
+  xs: 4px,
+  sm: 8px,
+  md: 16px,
+  lg: 24px,
+  xl: 32px,
+  xxl: 48px
+);
+
+// Breakpoints
+$breakpoints: (
+  mobile: 320px,
+  tablet: 768px,
+  desktop: 1024px,
+  wide: 1440px
+);
+
+// Typography
+$font-family: 'Roboto', 'Segoe UI', sans-serif;
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-base: 16px;
+$font-size-lg: 18px;
+$font-size-xl: 20px;
+$font-size-xxl: 24px;
+
+// Shadows
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+$shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+$shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.18);
+
+// Border Radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+
+// Transitions
+$transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+$transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+$transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+// ========================================
+// Base Styles
+// ========================================
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: $font-family;
+  background-color: #fafbfc;
+  color: #333;
+}
+
+body {
+  margin: 0;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ========================================
+// Typography
+// ========================================
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+h1 {
+  font-size: $font-size-xxl;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: $font-size-xl;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: $font-size-lg;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: $font-size-base;
+  font-weight: 600;
+}
+
+p {
+  margin: 0 0 map-get($spacing, md) 0;
+  line-height: 1.6;
+}
+
+a {
+  color: $danphe-primary-color;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $danphe-primary-dark;
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 2px solid $danphe-accent-color;
+    outline-offset: 2px;
+  }
+}
+
+// ========================================
+// Forms
+// ========================================
+
+input, textarea, select {
+  font-family: $font-family;
+  font-size: $font-size-base;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+textarea,
+select {
+  width: 100%;
+  padding: map-get($spacing, sm) map-get($spacing, md);
+  border: 1px solid #ddd;
+  border-radius: $border-radius-md;
+  background-color: #fff;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: $danphe-primary-light;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $danphe-primary-color;
+    box-shadow: 0 0 0 3px rgba(27, 122, 94, 0.1);
+  }
+
+  &:disabled {
+    background-color: #f5f5f5;
+    color: #999;
+    cursor: not-allowed;
+  }
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+// ========================================
+// Buttons
+// ========================================
+
+button, [type="button"], [type="submit"], [type="reset"] {
+  font-family: $font-family;
+  font-size: $font-size-base;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all $transition-fast;
+  border: none;
+  border-radius: $border-radius-md;
+  padding: map-get($spacing, sm) map-get($spacing, lg);
+  
+  &:focus {
+    outline: 2px solid $danphe-accent-color;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// ========================================
+// Cards & Containers
+// ========================================
+
+.card,
+mat-card {
+  background: white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  transition: all $transition-normal;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 map-get($spacing, md);
+
+  @media (max-width: map-get($breakpoints, tablet)) {
+    padding: 0 map-get($spacing, sm);
+  }
+}
+
+// ========================================
+// Layout
+// ========================================
+
+.page-container {
+  display: flex;
+  height: 100vh;
+  background-color: #fafbfc;
+}
+
+.sidebar {
+  width: 280px;
+  background: white;
+  box-shadow: $shadow-md;
+  overflow-y: auto;
+  transition: width $transition-normal;
+
+  @media (max-width: map-get($breakpoints, tablet)) {
+    position: fixed;
+    left: -280px;
+    height: 100vh;
+    z-index: 999;
+    transition: left $transition-normal;
+
+    &.active {
+      left: 0;
+    }
+  }
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+  background: white;
+  box-shadow: $shadow-md;
+  padding: map-get($spacing, md) map-get($spacing, lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: map-get($spacing, lg);
+
+  @media (max-width: map-get($breakpoints, tablet)) {
+    padding: map-get($spacing, md);
+  }
+}
+
+// ========================================
+// Utilities
+// ========================================
+
+// Spacing utilities
+.mt-xs { margin-top: map-get($spacing, xs); }
+.mt-sm { margin-top: map-get($spacing, sm); }
+.mt-md { margin-top: map-get($spacing, md); }
+.mt-lg { margin-top: map-get($spacing, lg); }
+.mt-xl { margin-top: map-get($spacing, xl); }
+
+.mb-xs { margin-bottom: map-get($spacing, xs); }
+.mb-sm { margin-bottom: map-get($spacing, sm); }
+.mb-md { margin-bottom: map-get($spacing, md); }
+.mb-lg { margin-bottom: map-get($spacing, lg); }
+.mb-xl { margin-bottom: map-get($spacing, xl); }
+
+.p-xs { padding: map-get($spacing, xs); }
+.p-sm { padding: map-get($spacing, sm); }
+.p-md { padding: map-get($spacing, md); }
+.p-lg { padding: map-get($spacing, lg); }
+.p-xl { padding: map-get($spacing, xl); }
+
+// Flex utilities
+.flex {
+  display: flex;
+
+  &.flex-center {
+    justify-content: center;
+    align-items: center;
+  }
+
+  &.flex-between {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &.flex-column {
+    flex-direction: column;
+  }
+
+  &.flex-gap-sm { gap: map-get($spacing, sm); }
+  &.flex-gap-md { gap: map-get($spacing, md); }
+  &.flex-gap-lg { gap: map-get($spacing, lg); }
+}
+
+// Grid utilities
+.grid {
+  display: grid;
+  gap: map-get($spacing, md);
+
+  &.grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  &.grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  &.grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  @media (max-width: map-get($breakpoints, tablet)) {
+    &.grid-2, &.grid-3, &.grid-4 {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// Text utilities
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.text-muted { color: #666; }
+.text-success { color: #13C784; }
+.text-danger { color: #f44336; }
+.text-warning { color: #ff9800; }
+.text-info { color: #2196f3; }
+
+.text-bold { font-weight: 700; }
+.text-uppercase { text-transform: uppercase; }
+
+// Visibility
+.hidden { display: none; }
+.invisible { visibility: hidden; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// ========================================
+// Animations
+// ========================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.fade-in {
+  animation: fadeIn $transition-normal;
+}
+
+.slide-in-up {
+  animation: slideInUp $transition-normal;
+}
+
+.slide-in-down {
+  animation: slideInDown $transition-normal;
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+// ========================================
+// Scrollbar Styling
+// ========================================
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+
+  &:hover {
+    background: #555;
+  }
+}
+
+// ========================================
+// Angular Material Overrides
+// ========================================
+
+mat-toolbar {
+  box-shadow: $shadow-md;
+}
+
+mat-menu-panel {
+  max-width: 300px !important;
+}
+
+.mat-expansion-panel {
+  box-shadow: $shadow-sm;
+
+  &.mat-expanded {
+    box-shadow: $shadow-md;
+  }
+}
+
+.mat-dialog-container {
+  border-radius: $border-radius-lg !important;
+}
+
+.mat-snack-bar-container {
+  border-radius: $border-radius-md !important;
+}
+
+// ========================================
+// Print Styles
+// ========================================
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  button, mat-button {
+    display: none !important;
+  }
+}

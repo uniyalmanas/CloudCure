@@ -1,0 +1,605 @@
+// ========================================
+// Modern Dashboard Styles
+// Material Design Healthcare Theme
+// ========================================
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: 64px 1fr;
+  height: 100vh;
+  background-color: #fafbfc;
+
+  &.sidebar-open {
+    .dashboard-sidebar {
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+
+    .dashboard-sidebar {
+      position: fixed;
+      left: 0;
+      top: 64px;
+      width: 280px;
+      height: calc(100vh - 64px);
+      z-index: 100;
+      transform: translateX(-100%);
+      transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+// ========================================
+// Header Styles
+// ========================================
+
+.dashboard-header {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid #e8ecef;
+  z-index: 50;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.menu-toggle {
+  display: none;
+
+  @media (max-width: 1024px) {
+    display: block;
+  }
+}
+
+.hospital-branding {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  color: #1B7A5E;
+
+  .logo {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: #13C784;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.search-field {
+  width: 300px;
+  margin: 0 16px;
+
+  @media (max-width: 1200px) {
+    width: 200px;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+
+  ::ng-deep {
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+
+    .mat-input-element {
+      font-size: 14px;
+    }
+  }
+}
+
+.notification-btn, .user-btn {
+  position: relative;
+
+  ::ng-deep {
+    .mat-badge-content {
+      background-color: #f44336;
+    }
+  }
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #1B7A5E;
+}
+
+// ========================================
+// Sidebar Styles
+// ========================================
+
+.dashboard-sidebar {
+  grid-row: 2;
+  background: white;
+  border-right: 1px solid #e8ecef;
+  overflow-y: auto;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.04);
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 3px;
+
+    &:hover {
+      background: #999;
+    }
+  }
+}
+
+.nav-menu {
+  padding: 24px 0;
+}
+
+.nav-section {
+  margin-bottom: 24px;
+  padding: 0 12px;
+}
+
+.nav-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #999;
+  padding: 0 12px 12px 12px;
+  margin: 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 12px;
+  color: #666;
+  border-radius: 8px;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  justify-content: flex-start;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: #999;
+  }
+
+  &:hover {
+    background-color: rgba(27, 122, 94, 0.08);
+    color: #1B7A5E;
+
+    mat-icon {
+      color: #1B7A5E;
+    }
+  }
+
+  &.active {
+    background-color: rgba(27, 122, 94, 0.12);
+    color: #1B7A5E;
+    border-left: 4px solid #1B7A5E;
+
+    mat-icon {
+      color: #1B7A5E;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    padding: 12px 16px;
+  }
+}
+
+.sidebar-footer {
+  padding: 24px 12px;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 24px;
+
+  .help-btn {
+    width: 100%;
+    color: #999;
+
+    mat-icon {
+      color: #999;
+    }
+
+    &:hover {
+      background-color: rgba(27, 122, 94, 0.08);
+      color: #1B7A5E;
+
+      mat-icon {
+        color: #1B7A5E;
+      }
+    }
+  }
+}
+
+// ========================================
+// Main Content
+// ========================================
+
+.dashboard-content {
+  grid-column: 2;
+  grid-row: 2;
+  overflow-y: auto;
+  padding: 32px;
+
+  @media (max-width: 1024px) {
+    grid-column: 1;
+    padding: 24px 16px;
+  }
+
+  @media (max-width: 640px) {
+    padding: 16px;
+  }
+}
+
+// ========================================
+// Breadcrumb
+// ========================================
+
+.breadcrumb-section {
+  margin-bottom: 24px;
+
+  ::ng-deep {
+    .mat-breadcrumb {
+      font-size: 13px;
+      color: #999;
+
+      a {
+        color: #1B7A5E;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+// ========================================
+// Page Header
+// ========================================
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #f0f0f0;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+  }
+
+  p {
+    color: #999;
+    font-size: 14px;
+    margin: 4px 0 0 0;
+  }
+}
+
+.header-content {
+  flex: 1;
+}
+
+// ========================================
+// Dashboard Grid
+// ========================================
+
+.dashboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.grid-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ========================================
+// Stat Cards
+// ========================================
+
+::ng-deep app-stat-card {
+  .stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e8ecef;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .stat-icon {
+      font-size: 32px;
+      width: 32px;
+      height: 32px;
+      margin-bottom: 12px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .stat-title {
+      font-size: 13px;
+      color: #999;
+      font-weight: 500;
+    }
+  }
+}
+
+// ========================================
+// Chart Cards
+// ========================================
+
+.chart-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e8ecef;
+  overflow: hidden;
+
+  ::ng-deep {
+    mat-card-header {
+      background-color: #fafbfc;
+      padding: 16px 24px;
+      margin: 0;
+      border-bottom: 1px solid #e8ecef;
+
+      h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        color: #1a1a1a;
+      }
+    }
+
+    mat-card-content {
+      padding: 24px;
+    }
+  }
+}
+
+// ========================================
+// Activity & Alerts
+// ========================================
+
+.activity-card, .alerts-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e8ecef;
+
+  ::ng-deep {
+    mat-card-header {
+      padding: 16px 24px;
+      margin: 0;
+      border-bottom: 1px solid #e8ecef;
+
+      h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        color: #1a1a1a;
+      }
+    }
+
+    mat-card-content {
+      padding: 0;
+
+      mat-list {
+        padding: 0;
+      }
+
+      mat-list-item {
+        padding: 12px 24px;
+        border-bottom: 1px solid #f0f0f0;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+  .secondary-text {
+    font-size: 12px;
+    color: #999 !important;
+  }
+}
+
+.alert-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border-left: 4px solid #ddd;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  mat-icon {
+    margin-top: 2px;
+  }
+
+  .alert-content {
+    flex: 1;
+
+    strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 13px;
+      color: #666;
+    }
+  }
+
+  &.alert-error {
+    background-color: #ffebee;
+    border-left-color: #f44336;
+    color: #c62828;
+  }
+
+  &.alert-warning {
+    background-color: #fff3e0;
+    border-left-color: #ff9800;
+    color: #e65100;
+  }
+
+  &.alert-info {
+    background-color: #e3f2fd;
+    border-left-color: #2196f3;
+    color: #1565c0;
+  }
+
+  &.alert-success {
+    background-color: #e8f5e9;
+    border-left-color: #13C784;
+    color: #2e7d32;
+  }
+}
+
+// ========================================
+// Quick Actions
+// ========================================
+
+.quick-actions {
+  margin-top: 32px;
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+
+  .action-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+
+    button {
+      height: auto;
+      padding: 12px 16px;
+      border-radius: 8px;
+
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+// ========================================
+// User Profile Menu
+// ========================================
+
+::ng-deep .user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px !important;
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .user-info {
+    flex: 1;
+
+    strong {
+      display: block;
+      font-size: 14px;
+      color: #1a1a1a;
+    }
+
+    p {
+      margin: 2px 0 0 0;
+      font-size: 12px;
+      color: #999;
+    }
+  }
+}

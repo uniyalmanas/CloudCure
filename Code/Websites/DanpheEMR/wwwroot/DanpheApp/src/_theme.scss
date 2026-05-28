@@ -1,0 +1,130 @@
+// ========================================
+// Danphe EMR - Material Design Theme
+// Healthcare Green Palette
+// ========================================
+
+@import '~@angular/material/theming';
+
+// Healthcare Color Palette - Medical Green Theme
+$danphe-primary: (
+  50: #e8f5f1,
+  100: #b3e5db,
+  200: #7dd3c4,
+  300: #4cc2ad,
+  400: #2cb59d,
+  500: #1B7A5E,     // Primary: Deep Medical Green
+  600: #177057,
+  700: #13664e,
+  800: #0f5c46,
+  900: #08463d,
+  A100: #70ff95,
+  A200: #3dff62,
+  A400: #0aff2f,
+  A700: #00e616,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: rgba(0, 0, 0, 0.87),
+    500: rgba(255, 255, 255, 1),
+    600: rgba(255, 255, 255, 1),
+    700: rgba(255, 255, 255, 1),
+    800: rgba(255, 255, 255, 1),
+    900: rgba(255, 255, 255, 1),
+    A100: rgba(0, 0, 0, 0.87),
+    A200: rgba(255, 255, 255, 1),
+    A400: rgba(255, 255, 255, 1),
+    A700: rgba(255, 255, 255, 1),
+  )
+);
+
+$danphe-accent: (
+  50: #f0f9f5,
+  100: #d1f0e6,
+  200: #afe6d5,
+  300: #8ddcc4,
+  400: #76d5b8,
+  500: #13C784,    // Accent: Vibrant Healthcare Green
+  600: #11bb7d,
+  700: #0fb375,
+  800: #0dab6d,
+  900: #099a5c,
+  A100: #a3ff9f,
+  A200: #70ff6c,
+  A400: #3dff38,
+  A700: #24ff1f,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: rgba(0, 0, 0, 0.87),
+    500: rgba(255, 255, 255, 1),
+    600: rgba(255, 255, 255, 1),
+    700: rgba(255, 255, 255, 1),
+    800: rgba(255, 255, 255, 1),
+    900: rgba(255, 255, 255, 1),
+    A100: rgba(0, 0, 0, 0.87),
+    A200: rgba(0, 0, 0, 0.87),
+    A400: rgba(255, 255, 255, 1),
+    A700: rgba(255, 255, 255, 1),
+  )
+);
+
+$danphe-warn: (
+  50: #ffebee,
+  100: #ffcdd2,
+  200: #ef9a9a,
+  300: #e57373,
+  400: #ef5350,
+  500: #f44336,
+  600: #e53935,
+  700: #d32f2f,
+  800: #c62828,
+  900: #b71c1c,
+  A100: #ff8a80,
+  A200: #ff5252,
+  A400: #ff1744,
+  A700: #d50000,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: rgba(0, 0, 0, 0.87),
+    500: rgba(255, 255, 255, 1),
+    600: rgba(255, 255, 255, 1),
+    700: rgba(255, 255, 255, 1),
+    800: rgba(255, 255, 255, 1),
+    900: rgba(255, 255, 255, 1),
+    A100: rgba(0, 0, 0, 0.87),
+    A200: rgba(255, 255, 255, 1),
+    A400: rgba(255, 255, 255, 1),
+    A700: rgba(255, 255, 255, 1),
+  )
+);
+
+// Create the default theme with the custom palettes
+$danphe-theme: mat-light-theme($danphe-primary, $danphe-accent, $danphe-warn);
+
+// Include the common styles for Angular Material
+@include mat-core();
+
+// Include the theme styles for Angular Material components
+@include angular-material-theme($danphe-theme);
+
+// Color Variables for Easy Access
+$danphe-primary-color: #1B7A5E;
+$danphe-primary-light: #7dd3c4;
+$danphe-primary-dark: #13664e;
+$danphe-accent-color: #13C784;
+$danphe-accent-light: #afe6d5;
+$danphe-warn-color: #f44336;
+
+// Dark theme support
+$danphe-dark-theme: mat-dark-theme($danphe-primary, $danphe-accent, $danphe-warn);
+
+.dark-theme {
+  @include angular-material-theme($danphe-dark-theme);
+}

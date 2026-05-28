@@ -90,6 +90,10 @@ import { PostReportComponent } from "../radiology/shared/report/post-report.comp
 
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
+import { ModernCardComponent } from "./modern-card.component";
+import { StatCardComponent } from "./stat-card.component";
 import { DrugsRequestComponent } from "../nursing/drugs-request/drugs-request.component";
 import { DicomMainModule } from "./danphe-dicom-viewer/dicom-main.module";
 import { DicomService } from "./danphe-dicom-viewer/shared/dicom.service";
@@ -226,9 +230,13 @@ import { authInterceptorProviders } from "./token-interceptor/token-interceptor.
     MatTooltipModule,
     SettingsSharedModule,
     //PdfViewerModule,
+    MatCardModule,
+    MatIconModule,
 
   ],
   declarations: [
+    ModernCardComponent,
+    StatCardComponent,
     DanpheDateTime,
     HasValuePipe,
     LoadingComponent,
@@ -330,6 +338,8 @@ import { authInterceptorProviders } from "./token-interceptor/token-interceptor.
 
   ],
   exports: [
+    ModernCardComponent,
+    StatCardComponent,
     DanpheDateTime,
     CommonModule,
     FormsModule,

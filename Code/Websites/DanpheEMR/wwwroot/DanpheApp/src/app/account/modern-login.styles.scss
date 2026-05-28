@@ -1,0 +1,449 @@
+// ========================================
+// Modern Login Page Styles
+// Material Design Healthcare Theme
+// ========================================
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1B7A5E 0%, #13664e 100%);
+  padding: 20px;
+}
+
+.login-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  width: 100%;
+  max-width: 1200px;
+  height: 600px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  background: white;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    height: auto;
+    max-width: 100%;
+  }
+}
+
+// ========================================
+// Branding Section
+// ========================================
+
+.login-branding {
+  background: linear-gradient(135deg, #1B7A5E 0%, #13664e 50%, #0f5c46 100%);
+  padding: 60px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 500px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    animation: float 20s ease-in-out infinite;
+  }
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+}
+
+.branding-content {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  animation: slideInLeft 500ms ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hospital-logo {
+  margin-bottom: 24px;
+}
+
+.logo-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: #13C784;
+}
+
+.branding-content h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.branding-content p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 40px;
+}
+
+.features-list {
+  text-align: left;
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  animation: slideInLeft 500ms ease-out;
+
+  &:nth-child(2) {
+    animation-delay: 100ms;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 200ms;
+  }
+
+  &:nth-child(4) {
+    animation-delay: 300ms;
+  }
+
+  mat-icon {
+    color: #13C784;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+// ========================================
+// Login Form Section
+// ========================================
+
+.login-form-section {
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: slideInRight 500ms ease-out;
+  overflow-y: auto;
+
+  @media (max-width: 1024px) {
+    padding: 40px 20px;
+    justify-content: flex-start;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.login-card {
+  box-shadow: none;
+  border-radius: 12px;
+  background: white;
+  margin: 0;
+
+  mat-card-content {
+    padding: 0;
+  }
+
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1B7A5E;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.full-width {
+  width: 100% !important;
+
+  ::ng-deep {
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+  }
+}
+
+// ========================================
+// Form Controls
+// ========================================
+
+mat-form-field {
+  ::ng-deep {
+    .mat-form-field-outline {
+      color: #ddd;
+    }
+
+    .mat-form-field-outline-thick {
+      color: #1B7A5E;
+    }
+
+    .mat-form-field-label {
+      color: #999;
+    }
+
+    .mat-input-element {
+      font-size: 14px;
+    }
+  }
+}
+
+mat-checkbox {
+  ::ng-deep {
+    .mat-checkbox-label {
+      font-size: 14px;
+      color: #666;
+    }
+  }
+}
+
+// ========================================
+// Form Footer
+// ========================================
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+
+  mat-checkbox {
+    margin: 0;
+  }
+
+  .forgot-link {
+    font-size: 14px;
+    color: #1B7A5E;
+    text-decoration: none;
+    transition: color 200ms;
+    white-space: nowrap;
+
+    &:hover {
+      color: #13664e;
+      text-decoration: underline;
+    }
+  }
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+// ========================================
+// Alerts
+// ========================================
+
+.error-alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background-color: #ffebee;
+  border: 1px solid #ef9a9a;
+  border-radius: 8px;
+  color: #c62828;
+  font-size: 14px;
+  margin-bottom: 16px;
+  animation: slideInDown 300ms ease-out;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+// ========================================
+// Buttons
+// ========================================
+
+.login-button {
+  height: 44px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  margin-top: 8px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:not(:disabled) {
+    background: linear-gradient(135deg, #1B7A5E, #13664e) !important;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(27, 122, 94, 0.3);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+.button-spinner {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+// ========================================
+// Additional Links
+// ========================================
+
+.signup-text {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  margin-top: 16px;
+  margin-bottom: 0;
+
+  a {
+    color: #1B7A5E;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 200ms;
+
+    &:hover {
+      color: #13664e;
+      text-decoration: underline;
+    }
+  }
+}
+
+mat-divider {
+  margin: 24px 0 !important;
+}
+
+.security-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #13C784;
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.my-4 {
+  margin: 16px 0;
+}
+
+// ========================================
+// Footer
+// ========================================
+
+.login-footer {
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
+
+  p {
+    margin: 0 0 12px 0;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+
+    a {
+      color: #1B7A5E;
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 200ms;
+
+      &:hover {
+        color: #13664e;
+        text-decoration: underline;
+      }
+    }
+
+    .separator {
+      color: #ddd;
+    }
+  }
+}
+
+// ========================================
+// Responsive
+// ========================================
+
+@media (max-width: 640px) {
+  .login-wrapper {
+    height: auto;
+  }
+
+  .login-form-section {
+    padding: 30px 20px;
+  }
+
+  .login-card h2 {
+    font-size: 24px;
+  }
+
+  form {
+    gap: 16px;
+  }
+}

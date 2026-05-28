@@ -1,0 +1,328 @@
+// ========================================
+// Modern Dashboard Layout Template
+// Material Design Healthcare Theme
+// ========================================
+
+<div class="dashboard-container" [class.sidebar-open]="sidebarOpen">
+  
+  <!-- Top Header -->
+  <header class="dashboard-header">
+    <div class="header-left">
+      <button 
+        mat-icon-button 
+        (click)="toggleSidebar()"
+        class="menu-toggle">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <div class="hospital-branding">
+        <mat-icon class="logo">local_hospital</mat-icon>
+        <span class="title">Danphe EMR</span>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <!-- Search -->
+      <mat-form-field class="search-field">
+        <mat-label>Search patients, records...</mat-label>
+        <input matInput placeholder="Quick search">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <!-- Notifications -->
+      <button mat-icon-button [matMenuTriggerFor]="notificationMenu" class="notification-btn">
+        <mat-icon matBadge="3" matBadgeColor="warn">notifications</mat-icon>
+      </button>
+
+      <!-- User Profile -->
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" class="user-btn">
+        <img [src]="userAvatar" alt="User Avatar" class="avatar">
+      </button>
+    </div>
+  </header>
+
+  <!-- Sidebar Navigation -->
+  <aside class="dashboard-sidebar">
+    <nav class="nav-menu">
+      <!-- Main Menu Items -->
+      <div class="nav-section">
+        <h3 class="nav-title">Main</h3>
+        <a mat-button 
+          routerLink="/dashboard"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>dashboard</mat-icon>
+          <span>Dashboard</span>
+        </a>
+        <a mat-button 
+          routerLink="/patients"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>people</mat-icon>
+          <span>Patients</span>
+        </a>
+        <a mat-button 
+          routerLink="/appointments"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>event</mat-icon>
+          <span>Appointments</span>
+        </a>
+      </div>
+
+      <!-- Clinical Menu -->
+      <div class="nav-section">
+        <h3 class="nav-title">Clinical</h3>
+        <a mat-button 
+          routerLink="/clinical/visits"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>medical_services</mat-icon>
+          <span>Visits</span>
+        </a>
+        <a mat-button 
+          routerLink="/clinical/prescriptions"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>description</mat-icon>
+          <span>Prescriptions</span>
+        </a>
+        <a mat-button 
+          routerLink="/labs"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>science</mat-icon>
+          <span>Lab Tests</span>
+        </a>
+      </div>
+
+      <!-- Billing Menu -->
+      <div class="nav-section">
+        <h3 class="nav-title">Billing & Finance</h3>
+        <a mat-button 
+          routerLink="/billing/invoices"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>receipt</mat-icon>
+          <span>Invoices</span>
+        </a>
+        <a mat-button 
+          routerLink="/billing/payments"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>payment</mat-icon>
+          <span>Payments</span>
+        </a>
+      </div>
+
+      <!-- Administration -->
+      <div class="nav-section">
+        <h3 class="nav-title">Administration</h3>
+        <a mat-button 
+          routerLink="/admin/users"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>admin_panel_settings</mat-icon>
+          <span>Users</span>
+        </a>
+        <a mat-button 
+          routerLink="/settings"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <button mat-button class="help-btn">
+        <mat-icon>help</mat-icon>
+        <span>Help & Support</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="dashboard-content">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-section">
+      <mat-breadcrumb>
+        <a mat-button (click)="navigate('/')">Home</a>
+        <mat-icon>chevron_right</mat-icon>
+        <span>Dashboard</span>
+      </mat-breadcrumb>
+    </div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="header-content">
+        <h1>Welcome, {{ userName }}!</h1>
+        <p>{{ currentDate | date: 'EEEE, MMMM d, yyyy' }}</p>
+      </div>
+      <button mat-raised-button color="primary">
+        <mat-icon>add</mat-icon>
+        New Patient
+      </button>
+    </section>
+
+    <!-- Dashboard Grid -->
+    <section class="dashboard-grid">
+      
+      <!-- Stats Cards -->
+      <div class="grid-row">
+        <app-stat-card 
+          title="Total Patients"
+          value="1,234"
+          icon="people"
+          color="primary">
+        </app-stat-card>
+        
+        <app-stat-card 
+          title="Today's Appointments"
+          value="28"
+          icon="event"
+          color="accent">
+        </app-stat-card>
+        
+        <app-stat-card 
+          title="Pending Payments"
+          value="$15,280"
+          icon="payment"
+          color="warn">
+        </app-stat-card>
+        
+        <app-stat-card 
+          title="Active Cases"
+          value="156"
+          icon="local_hospital"
+          color="info">
+        </app-stat-card>
+      </div>
+
+      <!-- Main Charts -->
+      <div class="grid-row">
+        <mat-card class="chart-card">
+          <mat-card-header>
+            <h3>Patient Visits (Last 30 Days)</h3>
+          </mat-card-header>
+          <mat-card-content>
+            <canvas id="visitsChart"></canvas>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="chart-card">
+          <mat-card-header>
+            <h3>Revenue Trends</h3>
+          </mat-card-header>
+          <mat-card-content>
+            <canvas id="revenueChart"></canvas>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Recent Activity & Alerts -->
+      <div class="grid-row">
+        <mat-card class="activity-card">
+          <mat-card-header>
+            <h3>Recent Activity</h3>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list>
+              <mat-list-item *ngFor="let activity of recentActivities">
+                <mat-icon matListAvatar [color]="activity.color">{{ activity.icon }}</mat-icon>
+                <div matLine>{{ activity.title }}</div>
+                <div matLine class="secondary-text">{{ activity.time }}</div>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="alerts-card">
+          <mat-card-header>
+            <h3>System Alerts</h3>
+          </mat-card-header>
+          <mat-card-content>
+            <div *ngFor="let alert of systemAlerts" class="alert-item" [ngClass]="'alert-' + alert.type">
+              <mat-icon>{{ alert.icon }}</mat-icon>
+              <div class="alert-content">
+                <strong>{{ alert.title }}</strong>
+                <p>{{ alert.message }}</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <h3>Quick Actions</h3>
+        <div class="action-buttons">
+          <button mat-raised-button color="primary">
+            <mat-icon>person_add</mat-icon>
+            Add Patient
+          </button>
+          <button mat-raised-button color="accent">
+            <mat-icon>event</mat-icon>
+            Schedule Appointment
+          </button>
+          <button mat-raised-button>
+            <mat-icon>receipt</mat-icon>
+            Create Invoice
+          </button>
+          <button mat-raised-button>
+            <mat-icon>assessment</mat-icon>
+            View Reports
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Notification Menu -->
+<mat-menu #notificationMenu="matMenu">
+  <button mat-menu-item>
+    <mat-icon color="warn">error</mat-icon>
+    <span>System Update Required</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon color="accent">check_circle</mat-icon>
+    <span>Backup Completed</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>info</mat-icon>
+    <span>New Features Available</span>
+  </button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item>View All Notifications</button>
+</mat-menu>
+
+<!-- User Profile Menu -->
+<mat-menu #userMenu="matMenu">
+  <div mat-menu-item disabled class="user-profile">
+    <img [src]="userAvatar" alt="User Avatar" class="user-avatar">
+    <div class="user-info">
+      <strong>{{ userName }}</strong>
+      <p>{{ userRole }}</p>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <button mat-menu-item (click)="navigateToProfile()">
+    <mat-icon>person</mat-icon>
+    <span>My Profile</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>settings</mat-icon>
+    <span>Preferences</span>
+  </button>
+  <button mat-menu-item (click)="toggleDarkMode()">
+    <mat-icon>{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    <span>{{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}</span>
+  </button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>
